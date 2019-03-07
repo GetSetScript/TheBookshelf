@@ -2,40 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using BookShelf.Core;
+using BookShelf.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookShelf
 {
+    /// <summary>
+    /// Represents the custom configuration of the Dependency Injection Services and the HTTP Pipeline
+    /// </summary>
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Startup"/>
+        /// </summary>
+        /// <param name="configuration">An Object for retrieving the application configuration values</param>
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Configures the Dependancey Injection Services
+        /// </summary>
+        /// <param name="services">The Service Collection to add the DI Services to</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
+            services.AddAutoMapper();
+            
+            services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BookshelfDatabase")), ServiceLifetime.Scoped); 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configures the middleware used by the HTTP Request/Response pipeline
+        /// </summary>
+        /// <param name="app">The Application Builder to add the middleware to</param>
+        /// <param name="env">The Hosting Environment information</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -44,13 +60,13 @@ namespace BookShelf
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+            //app.useDefaultFiles();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
