@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BookShelf</name>
+    </assembly>
+    <members>
+        <member name="T:BookShelf.Controllers.HomeController">
+            <summary>
+            Represents the main controller for serving up the home page
+            </summary>
+        </member>
+        <member name="M:BookShelf.Controllers.HomeController.#ctor(AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BookShelf.Controllers.HomeController"/>
+            </summary>
+            <param name="mapper">Used for mapping objects</param>
+        </member>
+        <member name="M:BookShelf.Controllers.HomeController.Index">
+            <summary>
+            Serves the homepage of the website
+            </summary>
+            <returns>The Index page view</returns>
+        </member>
+        <member name="T:BookShelf.Core.BookshelfMappingProfile">
+            <summary>
+            Represents the object mapping profiles for the bookshelf application
+            </summary>
+        </member>
+        <member name="T:BookShelf.Program">
+            <summary>
+            Represents the entry point of the program
+            </summary>
+        </member>
+        <member name="M:BookShelf.Program.Main(System.String[])">
+            <summary>
+            The entry method for the application
+            </summary>
+            <param name="args">A collection of command line arguments used for optional configuration of the application</param>
+        </member>
+        <member name="M:BookShelf.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            Builds the Web Host that is used to run the site
+            </summary>
+            <param name="args">A collection of arguments used to optionally configure the Web Host</param>
+            <returns>Returns a <see cref="T:Microsoft.AspNetCore.Hosting.IWebHostBuilder"/> configured to run the site</returns>
+        </member>
+        <member name="T:BookShelf.Startup">
+            <summary>
+            Represents the custom configuration of the Dependency Injection Services and the HTTP Pipeline
+            </summary>
+        </member>
+        <member name="M:BookShelf.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Creates a new instance of <see cref="T:BookShelf.Startup"/>
+            </summary>
+            <param name="configuration">An Object for retrieving the application configuration values</param>
+        </member>
+        <member name="M:BookShelf.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures the Dependancey Injection Services
+            </summary>
+            <param name="services">The Service Collection to add the DI Services to</param>
+        </member>
+        <member name="M:BookShelf.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Configures the middleware used by the HTTP Request/Response pipeline
+            </summary>
+            <param name="app">The Application Builder to add the middleware to</param>
+            <param name="env">The Hosting Environment information</param>
+        </member>
+    </members>
+</doc>
