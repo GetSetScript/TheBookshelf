@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BookShelf.Core;
+using BookShelf.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -38,6 +40,8 @@ namespace BookShelf
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
+            
+            services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BookshelfDatabase")), ServiceLifetime.Scoped); 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

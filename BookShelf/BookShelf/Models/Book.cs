@@ -12,6 +12,12 @@ namespace BookShelf.Models
     public class Book
     {
         /// <summary>
+        /// The database Id for the book
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
         /// The title of the book
         /// </summary>
         [Required]
@@ -34,7 +40,7 @@ namespace BookShelf.Models
         /// The 5 star rating for the book
         /// </summary>
         [Range(1, 5)]
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
 
         /// <summary>
         /// The image URL for the book
