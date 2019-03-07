@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShelf.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
-    [Migration("20190307203539_Initial")]
-    partial class Initial
+    [Migration("20190307223143_SeedDatabase")]
+    partial class SeedDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,9 @@ namespace BookShelf.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author")
+                        .IsRequired();
 
                     b.Property<DateTime>("DateRead");
 

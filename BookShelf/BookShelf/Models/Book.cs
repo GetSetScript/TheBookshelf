@@ -24,6 +24,12 @@ namespace BookShelf.Models
         public string Title { get; set; }
 
         /// <summary>
+        /// The author of the book
+        /// </summary>
+        [Required]
+        public string Author { get; set; }
+
+        /// <summary>
         /// The description of the book
         /// </summary>
         [Required]
