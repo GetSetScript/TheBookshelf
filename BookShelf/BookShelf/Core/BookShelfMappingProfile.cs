@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BookShelf.Core
 {
+    /// <summary>
+    /// Represents the object mapping profiles for the bookshelf application
+    /// </summary>
     public class BookshelfMappingProfile : Profile
     {
 

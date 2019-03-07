@@ -11,11 +11,18 @@ using NLog.Web;
 
 namespace BookShelf
 {
+    /// <summary>
+    /// Represents the entry point of the program
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// The entry method for the application
+        /// </summary>
+        /// <param name="args">A collection of command line arguments used for optional configuration of the application</param>
         public static void Main(string[] args)
         {
-            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
 
             try
             {
@@ -34,6 +41,11 @@ namespace BookShelf
 
         }
 
+        /// <summary>
+        /// Builds the Web Host that is used to run the site
+        /// </summary>
+        /// <param name="args">A collection of arguments used to optionally configure the Web Host</param>
+        /// <returns>Returns a <see cref="IWebHostBuilder"/> configured to run the site</returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
