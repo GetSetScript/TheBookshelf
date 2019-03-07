@@ -26,6 +26,57 @@
             Represents the object mapping profiles for the bookshelf application
             </summary>
         </member>
+        <member name="T:BookShelf.Data.BooksDbContext">
+            <summary>
+            Represents the Database Interface for manipulating book resources
+            </summary>
+        </member>
+        <member name="P:BookShelf.Data.BooksDbContext.Books">
+            <summary>
+            An entity set that can be used to manipulate books in the database
+            </summary>
+        </member>
+        <member name="M:BookShelf.Data.BooksDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{BookShelf.Data.BooksDbContext})">
+            <summary>
+            Creates a new instance of <see cref="T:BookShelf.Data.BooksDbContext"/>
+            </summary>
+            <param name="options">The Options for the DbContext using this <see cref="T:BookShelf.Data.BooksDbContext"/> as the Context</param>
+        </member>
+        <member name="T:BookShelf.Models.Book">
+            <summary>
+            Represent a book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Book.Id">
+            <summary>
+            The database Id for the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Book.Title">
+            <summary>
+            The title of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Book.Description">
+            <summary>
+            The description of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Book.DateRead">
+            <summary>
+            The date the book was read
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Book.Rating">
+            <summary>
+            The 5 star rating for the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Book.ImageUrl">
+            <summary>
+            The image URL for the book
+            </summary>
+        </member>
         <member name="T:BookShelf.Program">
             <summary>
             Represents the entry point of the program
