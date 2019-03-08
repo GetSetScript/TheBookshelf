@@ -62,7 +62,7 @@
             The author of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Book.Description">
+        <member name="F:BookShelf.Models.Book.Description">
             <summary>
             The description of the book
             </summary>
@@ -105,12 +105,13 @@
             Represents a Class that adds default book data to the <see cref="T:BookShelf.Data.BooksDbContext"/>
             </summary>
         </member>
-        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext)">
+        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookDataSeeder})">
             <summary>
             Creats a new instance of <see cref="T:BookShelf.Services.BookDataSeeder"/>
             </summary>
             <param name="hosting">Used for getting the Json data from the content root of the application</param>
             <param name="context">Used to add the seed data to the database</param>
+            <param name="logger">Used for logging</param>
         </member>
         <member name="M:BookShelf.Services.BookDataSeeder.Seed">
             <summary>
