@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BookShelf.Models;
+using BookShelf.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShelf.Controllers
@@ -14,14 +16,17 @@ namespace BookShelf.Controllers
     public class HomeController : Controller
     {
         private readonly IMapper _mapper;
+        private readonly BookRepositoryService _bookRepository;
 
         /// <summary>
         /// Creates a new instance of <see cref="HomeController"/>
         /// </summary>
         /// <param name="mapper">Used for mapping objects</param>
-        public HomeController(IMapper mapper)
+        /// <param name="bookRepository">Used for manipulating and accessing book resources</param>
+        public HomeController(IMapper mapper, BookRepositoryService bookRepository)
         {
             _mapper = mapper;
+            _bookRepository = bookRepository;
         }
 
         /// <summary>
