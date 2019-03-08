@@ -9,11 +9,12 @@
             Represents the main controller for serving up the home page
             </summary>
         </member>
-        <member name="M:BookShelf.Controllers.HomeController.#ctor(AutoMapper.IMapper)">
+        <member name="M:BookShelf.Controllers.HomeController.#ctor(AutoMapper.IMapper,BookShelf.Services.BookRepositoryService)">
             <summary>
             Creates a new instance of <see cref="T:BookShelf.Controllers.HomeController"/>
             </summary>
             <param name="mapper">Used for mapping objects</param>
+            <param name="repo">Used for manipulating and accessing the book resources</param>
         </member>
         <member name="M:BookShelf.Controllers.HomeController.Index">
             <summary>
@@ -62,7 +63,7 @@
             The author of the book
             </summary>
         </member>
-        <member name="F:BookShelf.Models.Book.Description">
+        <member name="P:BookShelf.Models.Book.Description">
             <summary>
             The description of the book
             </summary>

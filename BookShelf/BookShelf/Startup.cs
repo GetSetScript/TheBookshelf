@@ -45,6 +45,7 @@ namespace BookShelf
             services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BookshelfDatabase")), ServiceLifetime.Scoped);
 
             services.AddTransient<BookDataSeeder>();
+            services.AddTransient<IBookRepositoryService, BookRepositoryService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
