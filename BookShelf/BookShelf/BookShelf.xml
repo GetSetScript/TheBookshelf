@@ -57,7 +57,12 @@
             The title of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Book.Description">
+        <member name="P:BookShelf.Models.Book.Author">
+            <summary>
+            The author of the book
+            </summary>
+        </member>
+        <member name="F:BookShelf.Models.Book.Description">
             <summary>
             The description of the book
             </summary>
@@ -95,6 +100,24 @@
             <param name="args">A collection of arguments used to optionally configure the Web Host</param>
             <returns>Returns a <see cref="T:Microsoft.AspNetCore.Hosting.IWebHostBuilder"/> configured to run the site</returns>
         </member>
+        <member name="T:BookShelf.Services.BookDataSeeder">
+            <summary>
+            Represents a Class that adds default book data to the <see cref="T:BookShelf.Data.BooksDbContext"/>
+            </summary>
+        </member>
+        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookDataSeeder})">
+            <summary>
+            Creats a new instance of <see cref="T:BookShelf.Services.BookDataSeeder"/>
+            </summary>
+            <param name="hosting">Used for getting the Json data from the content root of the application</param>
+            <param name="context">Used to add the seed data to the database</param>
+            <param name="logger">Used for logging</param>
+        </member>
+        <member name="M:BookShelf.Services.BookDataSeeder.Seed">
+            <summary>
+            Seeds the database with default book data
+            </summary>
+        </member>
         <member name="T:BookShelf.Startup">
             <summary>
             Represents the custom configuration of the Dependency Injection Services and the HTTP Pipeline
@@ -112,12 +135,13 @@
             </summary>
             <param name="services">The Service Collection to add the DI Services to</param>
         </member>
-        <member name="M:BookShelf.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:BookShelf.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Services.BookDataSeeder)">
             <summary>
             Configures the middleware used by the HTTP Request/Response pipeline
             </summary>
             <param name="app">The Application Builder to add the middleware to</param>
             <param name="env">The Hosting Environment information</param>
+            <param name="bookDataSeeder">Used for adding default book data to the database</param>
         </member>
     </members>
 </doc>

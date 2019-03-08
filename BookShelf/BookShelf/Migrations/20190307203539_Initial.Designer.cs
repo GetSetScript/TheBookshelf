@@ -7,8 +7,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-#pragma warning disable CS1591
-
 namespace BookShelf.Migrations
 {
     [DbContext(typeof(BooksDbContext))]

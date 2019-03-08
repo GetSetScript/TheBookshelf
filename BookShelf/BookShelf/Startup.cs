@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BookShelf.Core;
 using BookShelf.Data;
+using BookShelf.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,7 +42,9 @@ namespace BookShelf
         {
             services.AddAutoMapper();
             
-            services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BookshelfDatabase")), ServiceLifetime.Scoped); 
+            services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BookshelfDatabase")), ServiceLifetime.Scoped);
+
+            services.AddTransient<BookDataSeeder>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -52,7 +55,8 @@ namespace BookShelf
         /// </summary>
         /// <param name="app">The Application Builder to add the middleware to</param>
         /// <param name="env">The Hosting Environment information</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        /// <param name="bookDataSeeder">Used for adding default book data to the database</param>
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BookDataSeeder bookDataSeeder)
         {
             if (env.IsDevelopment())
             {
@@ -74,6 +78,8 @@ namespace BookShelf
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            bookDataSeeder.Seed();
         }
     }
 }
