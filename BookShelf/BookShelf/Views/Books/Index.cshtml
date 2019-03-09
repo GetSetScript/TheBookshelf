@@ -1,0 +1,33 @@
+﻿@model PaginatedList<Book>
+@{
+    ViewBag.Title = "The Bookshelf";
+}
+
+@foreach (var b in Model)
+{
+    <img src="~/images/@b.ImagePath" />
+    <h2>@b.Title</h2>
+    <ul>
+        <li>@b.Author</li>
+        <li>@b.DateRead.ToShortDateString()</li>
+        <li>Rating @(b.Rating)</li>
+    </ul>
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-controller="Books"
+   asp-action="Index"
+   asp-route-id="@(Model.PageIndex - 1)"
+   class="@prevDisabled">
+   Previous
+</a>
+<a asp-controller="Books"
+   asp-action="Index"
+   asp-route-id="@(Model.PageIndex + 1)"
+   class="@nextDisabled">
+    Next
+</a>

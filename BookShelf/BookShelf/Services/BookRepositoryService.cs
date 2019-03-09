@@ -32,10 +32,10 @@ namespace BookShelf.Services
         /// Gets all of the <see cref="Book"/> resources from the database
         /// </summary>
         /// <returns>Returns an IQueryable collection</returns>
-        public IQueryable<Book> GetAll()
+        public IEnumerable<Book> GetAll()
         {
             _logger.LogDebug("Attempting to retreive all of the @{book} resources from @{_context}", nameof(Book), _context);
-            return _context.Books;
+            return _context.Books.ToList();
         }
 
         /// <summary>
