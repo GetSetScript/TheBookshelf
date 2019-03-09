@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BookShelf.Models;
 
@@ -34,7 +35,7 @@ namespace BookShelf.Services
         /// Gets all of the <see cref="Book"/> resources from the database
         /// </summary>
         /// <returns>Returns an IQueryable collection</returns>
-        IQueryable<Book> GetAll();
+        IEnumerable<Book> GetAll();
 
         /// <summary>
         /// Get a specific <see cref="Book"/> based on the passed in ID

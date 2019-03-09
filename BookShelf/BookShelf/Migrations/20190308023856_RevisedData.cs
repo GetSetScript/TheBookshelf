@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+#pragma warning disable CS1591
+
 namespace BookShelf.Migrations
 {
     public partial class RevisedData : Migration

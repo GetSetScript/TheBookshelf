@@ -49,9 +49,8 @@ namespace BookShelf.Models
         public int? Rating { get; set; }
 
         /// <summary>
-        /// The image URL for the book
+        /// The image Path for the book
         /// </summary>
-        [DataType(DataType.Url)]
-        public string ImageUrl { get; set; }
+        public string ImagePath { get; set; }
     }
 }

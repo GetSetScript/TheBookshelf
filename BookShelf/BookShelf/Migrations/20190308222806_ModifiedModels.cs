@@ -4,22 +4,22 @@
 
 namespace BookShelf.Migrations
 {
-    public partial class Test : Migration
+    public partial class ModifiedModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Description",
+            migrationBuilder.RenameColumn(
+                name: "ImageUrl",
                 table: "Books",
-                nullable: false,
-                defaultValue: "");
+                newName: "ImagePath");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Description",
-                table: "Books");
+            migrationBuilder.RenameColumn(
+                name: "ImagePath",
+                table: "Books",
+                newName: "ImageUrl");
         }
     }
 }

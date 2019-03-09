@@ -65,19 +65,18 @@ namespace BookShelf
             }
             else
             {
-                //app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
-            //app.useDefaultFiles();
+            
             app.UseStaticFiles();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Books}/{action=Index}/{id?}");
             });
 
             bookDataSeeder.Seed();
