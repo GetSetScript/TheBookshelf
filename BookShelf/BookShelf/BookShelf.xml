@@ -23,6 +23,13 @@
             </summary>
             <returns>The Index page view</returns>
         </member>
+        <member name="M:BookShelf.Controllers.BooksController.Detail(System.Int32)">
+            <summary>
+            Serves a detail view of a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="Id">The id of the <see cref="T:BookShelf.Models.Book"/> resource</param>
+            <returns>A Task to be awaited</returns>
+        </member>
         <member name="T:BookShelf.Core.BookshelfMappingProfile">
             <summary>
             Represents the object mapping profiles for the bookshelf application
