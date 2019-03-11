@@ -18,7 +18,6 @@ body {
 
 header {
     flex-grow: 1;
-    max-height: 14vh;
 }
 
 main {
@@ -39,11 +38,11 @@ main {
     line-height: 1.5;
     max-width: 27rem;
     text-align: left;
-    margin: 0 auto;
+    font-family: var(--font-family-secondary);
   }
 
   section {
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
   }
 
 

@@ -1,6 +1,7 @@
 :root {
     --color-text-light-primary: floralwhite;
     --color-text-dark-primary: #484848;
+    --color-text-dark-secondary: #6b6b6b;
     --color-text-disabled: #dffffc;
 
     --color-primary: #3e3b44;

@@ -1,6 +1,6 @@
 ﻿@model PaginatedList<Book>
 @{
-    ViewBag.Title = "The Bookshelf";
+    ViewBag.Title = "Index";
 }
 
 <main class="p-index">
@@ -20,9 +20,9 @@
                             <span class="c-bookCard_rating">@(b.Rating)</span>
                         </span>
                         <span class="c-bookCard_actionsContainer">
-                            <a class="c-bookCard_edit" asp-action="Edit" asp-route-id="@b.Id"></a>
+                            <a class="o-editLink" asp-action="Edit" asp-route-id="@b.Id"></a>
                             <span class="c-bookCard_divider"></span>
-                            <button class="c-bookCard_delete" asp-action="Delete"></button>
+                            <button class="o-deleteButton" asp-action="Delete" asp-route-id="@b.Id"></button>
                         </span>
                     </div>
                 }

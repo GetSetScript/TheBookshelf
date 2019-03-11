@@ -11,7 +11,8 @@
 @import url("02_Base/b-classes.css");
 
 /* 03_Objects */
-/* @import url("03_Objects/base-tags.css"); */
+@import url("03_Objects/o-deleteButton.css");
+@import url("03_Objects/o-editLink.css");
 
 /* 04_Components */
 @import url("04_Components/c-bookCard.css");
@@ -19,3 +20,5 @@
 /* 05_Pages */
 @import url("05_Pages/p-index.css");
 @import url("05_Pages/p-layout.css");
+@import url("05_Pages/p-detail.css");
+@import url("05_Pages/p-notFound.css");

@@ -1,0 +1,21 @@
+﻿.o-deleteButton {
+    font-family: var(--font-family-fontAwesome);
+    font-weight: var(--font-weight-fontAwesome-solid);
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+    .o-deleteButton::before {
+        content: var(--fontAwesome-trash);
+        display: inline-block;
+        padding: .5rem;
+        font-size: 1.6rem;
+        margin: 0 auto;
+        color: red;
+        cursor: pointer;
+    }
+
+    .o-deleteButton:hover::before {
+        color: darkred;
+    }
