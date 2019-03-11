@@ -4,27 +4,90 @@
         <name>BookShelf</name>
     </assembly>
     <members>
-        <member name="T:BookShelf.Controllers.HomeController">
+        <member name="T:BookShelf.Controllers.BooksController">
             <summary>
             Represents the main controller for serving up the home page
             </summary>
         </member>
-        <member name="M:BookShelf.Controllers.HomeController.#ctor(AutoMapper.IMapper)">
+        <member name="M:BookShelf.Controllers.BooksController.#ctor(AutoMapper.IMapper,BookShelf.Services.IBookRepositoryService,Microsoft.Extensions.Logging.ILogger{BookShelf.Controllers.BooksController})">
             <summary>
-            Creates a new instance of <see cref="T:BookShelf.Controllers.HomeController"/>
+            Creates a new instance of <see cref="T:BookShelf.Controllers.BooksController"/>
             </summary>
             <param name="mapper">Used for mapping objects</param>
+            <param name="bookRepository">Used for manipulating and accessing book resources</param>
+            <param name="logger">Used for logging</param>
         </member>
-        <member name="M:BookShelf.Controllers.HomeController.Index">
+        <member name="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})">
             <summary>
             Serves the homepage of the website
             </summary>
             <returns>The Index page view</returns>
         </member>
+        <member name="M:BookShelf.Controllers.BooksController.Detail(System.Int32)">
+            <summary>
+            Serves a detail view of a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="Id">The id of the <see cref="T:BookShelf.Models.Book"/> resource</param>
+            <returns>A Task to be awaited</returns>
+        </member>
         <member name="T:BookShelf.Core.BookshelfMappingProfile">
             <summary>
             Represents the object mapping profiles for the bookshelf application
             </summary>
+        </member>
+        <member name="T:BookShelf.Core.PaginatedList`1">
+            <summary>
+            Represents a paginated collection
+            </summary>
+            <typeparam name="T">The type for the list</typeparam>
+        </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.PageIndex">
+            <summary>
+            The current page index (page number)
+            </summary>
+        </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.NextPageIndex">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.PreviousPageIndex">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.TotalPages">
+            <summary>
+            the total amount of pages available in the given collection
+            </summary>
+        </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.HasPreviousPage">
+            <summary>
+            Returns true if the previous page index (page number) is available
+            </summary>
+        </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.HasNextPage">
+            <summary>
+            Returns true if next page index (page number) is available
+            </summary>
+        </member>
+        <member name="M:BookShelf.Core.PaginatedList`1.#ctor(System.Collections.Generic.List{`0},System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of the <see cref="T:BookShelf.Core.PaginatedList`1"/>
+            </summary>
+            <param name="items">The resources in the collection that will be paginated over</param>
+            <param name="count">The total number of resources in the collection</param>
+            <param name="pageIndex">The page index (page number)</param>
+            <param name="pageSize">The amount of resources to return from the collection</param>
+        </member>
+        <member name="M:BookShelf.Core.PaginatedList`1.ReturnPaginated(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Int32)">
+            <summary>
+            Returns a collection that has been paginated over
+            </summary>
+            <param name="source">The collection to be paginated over</param>
+            <param name="pageIndex">The desired page index (page number)</param>
+            <param name="pageSize">The desired amount of resources to be returned</param>
+            <returns>Returns the desired amount of resources from the desired page index (page number) as a collection</returns>
         </member>
         <member name="T:BookShelf.Data.BooksDbContext">
             <summary>
@@ -57,6 +120,11 @@
             The title of the book
             </summary>
         </member>
+        <member name="P:BookShelf.Models.Book.Author">
+            <summary>
+            The author of the book
+            </summary>
+        </member>
         <member name="P:BookShelf.Models.Book.Description">
             <summary>
             The description of the book
@@ -72,9 +140,44 @@
             The 5 star rating for the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Book.ImageUrl">
+        <member name="P:BookShelf.Models.Book.ImagePath">
             <summary>
-            The image URL for the book
+            The image Path for the book
+            </summary>
+        </member>
+        <member name="T:BookShelf.Models.Dtos.BookDto">
+            <summary>
+            Represents a class for transfering data to a <see cref="T:BookShelf.Models.Book"/> when adding a resource
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookDto.Title">
+            <summary>
+            The title of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookDto.Author">
+            <summary>
+            The author of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookDto.Description">
+            <summary>
+            The description of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookDto.DateRead">
+            <summary>
+            The date the book was read
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookDto.Rating">
+            <summary>
+            The 5 star rating for the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookDto.Image">
+            <summary>
+            The image for the book
             </summary>
         </member>
         <member name="T:BookShelf.Program">
@@ -95,6 +198,123 @@
             <param name="args">A collection of arguments used to optionally configure the Web Host</param>
             <returns>Returns a <see cref="T:Microsoft.AspNetCore.Hosting.IWebHostBuilder"/> configured to run the site</returns>
         </member>
+        <member name="T:BookShelf.Services.BookDataSeeder">
+            <summary>
+            Represents a Class that adds default book data to the <see cref="T:BookShelf.Data.BooksDbContext"/>
+            </summary>
+        </member>
+        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookDataSeeder})">
+            <summary>
+            Creats a new instance of <see cref="T:BookShelf.Services.BookDataSeeder"/>
+            </summary>
+            <param name="hosting">Used for getting the Json data from the content root of the application</param>
+            <param name="context">Used to add the seed data to the database</param>
+            <param name="logger">Used for logging</param>
+        </member>
+        <member name="M:BookShelf.Services.BookDataSeeder.Seed">
+            <summary>
+            Seeds the database with default book data
+            </summary>
+        </member>
+        <member name="T:BookShelf.Services.BookRepositoryService">
+            <summary>
+            Represents a service for accessing and manipulating the book resources
+            </summary>
+        </member>
+        <member name="M:BookShelf.Services.BookRepositoryService.#ctor(BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookRepositoryService})">
+            <summary>
+            Creates a new instance of <see cref="T:BookShelf.Services.BookRepositoryService"/>
+            </summary>
+            <param name="context">The DbContext for interfacing with the database</param>
+            <param name="logger">Used for logging</param>
+        </member>
+        <member name="M:BookShelf.Services.BookRepositoryService.GetAll">
+            <summary>
+            Gets all of the <see cref="T:BookShelf.Models.Book"/> resources from the database
+            </summary>
+            <returns>Returns an IQueryable collection</returns>
+        </member>
+        <member name="M:BookShelf.Services.BookRepositoryService.GetByIdAsync(System.Int32)">
+            <summary>
+            Get a specific <see cref="T:BookShelf.Models.Book"/> based on the passed in ID
+            </summary>
+            <param name="id">The Id of the book to be returned</param>
+            <returns>A book resource</returns>
+        </member>
+        <member name="M:BookShelf.Services.BookRepositoryService.CreateAsync(BookShelf.Models.Book)">
+            <summary>
+            Creates a book resource
+            </summary>
+            <param name="book">The book resource to be created</param>
+            <returns>A Task to be awaited</returns>
+        </member>
+        <member name="M:BookShelf.Services.BookRepositoryService.DeleteAsync(BookShelf.Models.Book)">
+            <summary>
+            Deletes a book resource
+            </summary>
+            <param name="book">The book resource to be deleted</param>
+            <returns>A Task to be awaited</returns>
+        </member>
+        <member name="M:BookShelf.Services.BookRepositoryService.UpdateAsync(BookShelf.Models.Book)">
+            <summary>
+            Updates a book resourece
+            </summary>
+            <param name="book">The book to be updated</param>
+            <returns>A Task to await</returns>
+        </member>
+        <member name="M:BookShelf.Services.BookRepositoryService.DoesBookExistAsync(BookShelf.Models.Book)">
+            <summary>
+            Check for the existance of a book resource
+            </summary>
+            <param name="book">The book to check</param>
+            <returns>Returns true if the book exists</returns>
+        </member>
+        <member name="T:BookShelf.Services.IBookRepositoryService">
+            <summary>
+            Represents the interface for a service that can access and manipulate book resources
+            </summary>
+        </member>
+        <member name="M:BookShelf.Services.IBookRepositoryService.CreateAsync(BookShelf.Models.Book)">
+            <summary>
+            Creates a book resource
+            </summary>
+            <param name="book">The book resource to be created</param>
+            <returns>A Task to be awaited</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookRepositoryService.DeleteAsync(BookShelf.Models.Book)">
+            <summary>
+            Deletes a book resource
+            </summary>
+            <param name="book">The book resource to be deleted</param>
+            <returns>A Task to be awaited</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookRepositoryService.DoesBookExistAsync(BookShelf.Models.Book)">
+            <summary>
+            Check for the existance of a book resource
+            </summary>
+            <param name="book">The book to check</param>
+            <returns>Returns true if the book exists</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookRepositoryService.GetAll">
+            <summary>
+            Gets all of the <see cref="T:BookShelf.Models.Book"/> resources from the database
+            </summary>
+            <returns>Returns an IQueryable collection</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookRepositoryService.GetByIdAsync(System.Int32)">
+            <summary>
+            Get a specific <see cref="T:BookShelf.Models.Book"/> based on the passed in ID
+            </summary>
+            <param name="id">The Id of the book to be returned</param>
+            <returns>A book resource</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookRepositoryService.UpdateAsync(BookShelf.Models.Book)">
+            <summary>
+            Updates a book resourece
+            </summary>
+            <param name="book">The book to be updated</param>
+            <returns>A Task to await</returns>
+        </member>
         <member name="T:BookShelf.Startup">
             <summary>
             Represents the custom configuration of the Dependency Injection Services and the HTTP Pipeline
@@ -112,12 +332,13 @@
             </summary>
             <param name="services">The Service Collection to add the DI Services to</param>
         </member>
-        <member name="M:BookShelf.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:BookShelf.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Services.BookDataSeeder)">
             <summary>
             Configures the middleware used by the HTTP Request/Response pipeline
             </summary>
             <param name="app">The Application Builder to add the middleware to</param>
             <param name="env">The Hosting Environment information</param>
+            <param name="bookDataSeeder">Used for adding default book data to the database</param>
         </member>
     </members>
 </doc>

@@ -1,0 +1,35 @@
+﻿@model Book
+@{
+    ViewBag.Title = "Detail";
+
+    var descriptions = Model.Description.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
+}
+
+<main class="p-detail">
+    <div class="p-detail_actionsContainer">
+        <button class="p-detail_delete o-deleteButton" asp-action="Delete" asp-route-id="@Model.Id"></button>
+        <a class="p-detail_edit o-editLink" asp-action="Edit" asp-route-id="@Model.Id"></a>
+    </div>
+    <header class="p-detail_header b-wrapper">
+        <h1 class="p-detail_title">@Model.Title</h1>
+        <h2 class="p-detail_author">@Model.Author</h2>
+        @for (var i = 0; i < Model.Rating; i++)
+        {
+            <img class="p-detail_rating" src="~/images/rating.png" alt="The book rating is @Model.Rating" />
+        }
+    </header>
+
+    <section class="p-detail_section">
+        <div class="p-detail_content b-wrapper">
+            <div class="p-detail_description">
+                @foreach (var description in descriptions)
+                {
+                    <p class="p-detail_text">@description</p>
+                }
+            </div>
+            <img class="p-detail_image" src="~/images/@Model.ImagePath" />
+        </div>
+    </section>
+
+</main>
+

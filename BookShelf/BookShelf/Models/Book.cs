@@ -24,6 +24,12 @@ namespace BookShelf.Models
         public string Title { get; set; }
 
         /// <summary>
+        /// The author of the book
+        /// </summary>
+        [Required]
+        public string Author { get; set; }
+
+        /// <summary>
         /// The description of the book
         /// </summary>
         [Required]
@@ -43,9 +49,8 @@ namespace BookShelf.Models
         public int? Rating { get; set; }
 
         /// <summary>
-        /// The image URL for the book
+        /// The image Path for the book
         /// </summary>
-        [DataType(DataType.Url)]
-        public string ImageUrl { get; set; }
+        public string ImagePath { get; set; }
     }
 }

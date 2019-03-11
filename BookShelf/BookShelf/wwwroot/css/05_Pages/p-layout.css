@@ -1,0 +1,29 @@
+﻿
+.p-layout_header {
+    background-color: var(--color-primary);
+    color: var(--color-text-light-primary);
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-height: 6rem;
+}
+
+.p-layout_title {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.p-layout_logo {
+    width: 6rem;
+    height: 6rem;
+    display: inline-block;
+}
+
+.p-layout_footer {
+    height: 3rem;
+    width: 100%;
+    background-color: var(--color-primary);
+}
