@@ -51,11 +51,28 @@ namespace BookShelf.Controllers
             return View(books);
         }
 
-        //[HttpGet("detail")]
-        //public IActionResult Detail()
-        //{
-        //    return View();
-        //}
+        /// <summary>
+        /// Serves a detail view of a <see cref="Book"/> resource
+        /// </summary>
+        /// <param name="Id">The id of the <see cref="Book"/> resource</param>
+        /// <returns>A Task to be awaited</returns>
+        [HttpGet("detail")]
+        public async Task<IActionResult> Detail(int Id)
+        {
+            _logger.LogDebug("Attempting to retrieve book with Id of @{Id}", Id);
+            var book = await _bookRepository.GetByIdAsync(Id);
+
+            if (book == null)
+            {
+                _logger.LogDebug("The book with Id of @{Id} was not found", Id);
+                Response.StatusCode = 404;
+                return View("NotFound");
+            }
+
+            _logger.LogDebug("Returning Detail View with @{book} resource", book);
+
+            return View(book);
+        }
 
         //[HttpGet("create")]
         //public IActionResult Create()
