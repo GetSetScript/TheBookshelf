@@ -2,15 +2,17 @@
 .p-layout_header {
     background-color: var(--color-primary);
     color: var(--color-text-light-primary);
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: row;
     align-items: center;
+    max-height: 6rem;
 }
 
 .p-layout_title {
     display: inline-block;
     font-weight: bold;
+    font-size: 2rem;
     margin-bottom: 0;
 }
 

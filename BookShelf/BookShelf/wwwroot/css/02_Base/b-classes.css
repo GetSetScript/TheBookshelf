@@ -3,3 +3,11 @@
     width: 90%;
     margin: 0 auto;
 }
+
+@media (min-width: 56rem) {
+
+    .b-wrapper {
+        width: 80%;
+    }
+
+}

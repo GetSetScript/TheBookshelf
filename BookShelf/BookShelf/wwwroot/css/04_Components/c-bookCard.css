@@ -51,49 +51,8 @@
     padding: 0 .5rem 0 .5rem;
 }
 
-.c-bookCard_edit {
-    font-family: var(--font-family-fontAwesome);
-    font-weight: var(--font-weight-fontAwesome-solid);
-    text-decoration: none;
-}
-
-    .c-bookCard_edit:hover::before {
-        color: var(--color-active-hover);
-    }
-
-    .c-bookCard_edit::before {
-        content: var(--fontAwesome-edit);
-        display: inline-block;
-        color: var(--color-active);
-        padding: .5rem;
-        font-size: 1.6rem;
-        margin: 0 auto;
-    }
-
 .c-bookCard_divider {
     display: inline-block;
     height: 1.5rem;
     border-left: .2rem solid var(--color-underline);
 }
-
-.c-bookCard_delete {
-    font-family: var(--font-family-fontAwesome);
-    font-weight: var(--font-weight-fontAwesome-solid);
-    border: none;
-    outline: none;
-    background-color: transparent;
-}
-
-    .c-bookCard_delete::before {
-        content: var(--fontAwesome-trash);
-        display: inline-block;
-        padding: .5rem;
-        font-size: 1.6rem;
-        margin: 0 auto;
-        color: red;
-        cursor: pointer;
-    }
-
-    .c-bookCard_delete:hover::before {
-        color: darkred;
-    }

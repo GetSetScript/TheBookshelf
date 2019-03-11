@@ -1,0 +1,11 @@
+﻿
+.p-notFound {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-notFound_title {
+    text-align: center;
+    font-size: 5rem;
+}

@@ -1,11 +1,9 @@
 :root {
     /* base font family */
-    
-
+    --font-family-secondary: "Verdana", "Helvetica", sans-serif;
     /* font awesome font family */
     --font-family-fontAwesome: "Font Awesome 5 Free";
     --font-family-fontAwesome-brands: "Font Awesome 5 Brands";
-
     /* font awesome font weight */
     --font-weight-fontAwesome-solid: 900;
     --font-weight-fontAwesome-regular: 400;

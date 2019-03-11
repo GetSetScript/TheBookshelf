@@ -42,7 +42,7 @@ namespace BookShelf.Controllers
         [HttpGet()]
         public IActionResult Index(int? Id)
         {
-            var pageSize = 8;
+            var pageSize = 9;
             
             var books = PaginatedList<Book>.ReturnPaginated(_bookRepository.GetAll(), Id ?? 1, pageSize);
 

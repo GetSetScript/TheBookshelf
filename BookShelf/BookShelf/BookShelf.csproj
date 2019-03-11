@@ -93,8 +93,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\css\03_Objects\" />
-  </ItemGroup>
-
 </Project>
