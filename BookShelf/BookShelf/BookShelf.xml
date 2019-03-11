@@ -39,6 +39,16 @@
             The current page index (page number)
             </summary>
         </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.NextPageIndex">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BookShelf.Core.PaginatedList`1.PreviousPageIndex">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:BookShelf.Core.PaginatedList`1.TotalPages">
             <summary>
             the total amount of pages available in the given collection

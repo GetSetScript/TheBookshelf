@@ -42,12 +42,12 @@ namespace BookShelf.Controllers
         [HttpGet()]
         public IActionResult Index(int? Id)
         {
-            var pageSize = 1;
+            var pageSize = 8;
             
             var books = PaginatedList<Book>.ReturnPaginated(_bookRepository.GetAll(), Id ?? 1, pageSize);
 
             _logger.LogDebug("Returning Index View with @{books} resources, with page size of @{pageSize} and requested page index of @{Id}", books, pageSize, Id);
-
+            
             return View(books);
         }
 

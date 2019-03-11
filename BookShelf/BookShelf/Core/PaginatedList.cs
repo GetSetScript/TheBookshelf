@@ -18,6 +18,16 @@ namespace BookShelf.Core
         public int PageIndex { get; private set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public int NextPageIndex => PageIndex + 1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int PreviousPageIndex => PageIndex - 1;
+
+        /// <summary>
         /// the total amount of pages available in the given collection
         /// </summary>
         public int TotalPages { get; private set; }

@@ -1,0 +1,14 @@
+:root {
+    --color-text-light-primary: floralwhite;
+    --color-text-dark-primary: #484848;
+    --color-text-disabled: #dffffc;
+
+    --color-primary: #3e3b44;
+    --color-secondary: floralWhite;
+
+    --color-active: #009688;
+    --color-active-hover: #045049;
+    --color-disabled: #a1ded8;
+    --color-underline: #cbc9ce;
+    --color-shadow: rgba(143,143,143,1);
+}

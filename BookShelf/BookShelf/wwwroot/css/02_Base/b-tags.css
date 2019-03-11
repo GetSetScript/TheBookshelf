@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+    margin-top: 0;
+  }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 0;
+    min-width: 22rem;
+    background-image: url("../../images/full-bloom.png");
+    background-repeat: repeat;
+    color: var(--color-text-dark-primary);
+}
+
+header {
+    flex-grow: 1;
+}
+
+main {
+    flex-grow: 1;
+}
+
+
+  h1 {
+    margin-top: 0;
+    font-size: 2rem;
+  }
+
+  h2 {
+      text-align: center;
+  }
+
+  p {
+    line-height: 1.5;
+    max-width: 27rem;
+    text-align: left;
+    margin: 0 auto;
+  }
+
+  section {
+      margin-bottom: 3rem;
+  }
+
+
+  @media (min-width: 56rem) {
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+  }
+
+  

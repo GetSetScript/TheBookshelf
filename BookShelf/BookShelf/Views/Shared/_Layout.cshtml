@@ -6,19 +6,26 @@
     <title>@ViewBag.Title</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/css/index.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/css/global.css" />
     </environment>
 
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/css/index.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/css/global.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
-    <div class="container body-content">
+    <header class="p-layout_header">
+        <a asp-controller="Books" asp-action="Index" asp-route-id="">
+            <img class="p-layout_logo" src="~/images/logo.png" alt="bookshelf logo" />
+        </a>
+        <h1 class="p-layout_title">@ViewBag.Title</h1>
+    </header>
 
-        @RenderBody()
+    @RenderBody()
 
-    </div>
+    <footer class="p-layout_footer"></footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
