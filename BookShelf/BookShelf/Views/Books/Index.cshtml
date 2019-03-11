@@ -3,31 +3,50 @@
     ViewBag.Title = "The Bookshelf";
 }
 
-@foreach (var b in Model)
-{
-    <img src="~/images/@b.ImagePath" />
-    <h2>@b.Title</h2>
-    <ul>
-        <li>@b.Author</li>
-        <li>@b.DateRead.ToShortDateString()</li>
-        <li>Rating @(b.Rating)</li>
-    </ul>
-}
+<main class="p-index">
+    <section>
+        <div class="b-wrapper">
+            <h2 class="p-index_title">Sample Books</h2>
 
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
+            <div class="p-index_bookCardContainer">
+                @foreach (var b in Model)
+                {
+                    <div class="p-index_bookCard c-bookCard">
+                        <a class="c-bookCard_imageDetail" asp-action="Detail" asp-route-id="@b.Id">
+                            <img class="c-bookCard_image" src="~/images/@b.ImagePath" />
+                        </a>
+                        <h3 class="c-bookCard_title">@b.Title</h3>
+                        <span class="c-bookCard_star">
+                            <span class="c-bookCard_rating">@(b.Rating)</span>
+                        </span>
+                        <span class="c-bookCard_actionsContainer">
+                            <a class="c-bookCard_edit" asp-action="Edit" asp-route-id="@b.Id"></a>
+                            <span class="c-bookCard_divider"></span>
+                            <button class="c-bookCard_delete" asp-action="Delete"></button>
+                        </span>
+                    </div>
+                }
+            </div>
 
-<a asp-controller="Books"
-   asp-action="Index"
-   asp-route-id="@(Model.PageIndex - 1)"
-   class="@prevDisabled">
-   Previous
-</a>
-<a asp-controller="Books"
-   asp-action="Index"
-   asp-route-id="@(Model.PageIndex + 1)"
-   class="@nextDisabled">
-    Next
-</a>
+            <nav class="p-index_navigation">
+                @if (Model.HasPreviousPage)
+                {
+                    <a class="p-index_button -active -large" asp-action="Index" asp-route-id="@Model.PreviousPageIndex">Previous</a>
+                }
+                else
+                {
+                    <span class="p-index_button -disabled -large">Previous</span>
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a class="p-index_button -active -large" asp-action="Index" asp-route-id="@Model.NextPageIndex">Next</a>
+                }
+                else
+                {
+                    <span class="p-index_button -disabled -large">Next</span>
+                }
+            </nav>
+        </div>
+    </section>
+</main>
