@@ -74,6 +74,33 @@ namespace BookShelf.Controllers
             return View(book);
         }
 
+        [HttpPost(), ActionName("Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            _logger.LogDebug("Attempting to delete book with Id of @{id}", id);
+            var book = await _bookRepository.GetByIdAsync(id);
+
+            if (book == null)
+            {
+                _logger.LogError("Failed to delete @{book} because it was null", book);
+                return new StatusCodeResult(501);
+            }
+
+            try
+            {
+                await _bookRepository.DeleteAsync(book);
+            } 
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete @{book}", book);
+                return new StatusCodeResult(501);
+            }
+
+            _logger.LogDebug("Successfully deleted @{book} resource", book);
+
+            return RedirectToAction("Index");
+        }
+
         //[HttpGet("create")]
         //public IActionResult Create()
         //{

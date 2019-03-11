@@ -9,20 +9,24 @@
             <h2 class="p-index_title">Sample Books</h2>
 
             <div class="p-index_bookCardContainer">
-                @foreach (var b in Model)
+                @foreach (var book in Model)
                 {
                     <div class="p-index_bookCard c-bookCard">
-                        <a class="c-bookCard_imageDetail" asp-action="Detail" asp-route-id="@b.Id">
-                            <img class="c-bookCard_image" src="~/images/@b.ImagePath" />
+                        <a class="c-bookCard_imageDetail" asp-action="Detail" asp-route-id="@book.Id">
+                            <img class="c-bookCard_image" src="~/images/@book.ImagePath" />
                         </a>
-                        <h3 class="c-bookCard_title">@b.Title</h3>
+                        <h3 class="c-bookCard_title">@book.Title</h3>
                         <span class="c-bookCard_star">
-                            <span class="c-bookCard_rating">@(b.Rating)</span>
+                            <span class="c-bookCard_rating">@(book.Rating)</span>
                         </span>
                         <span class="c-bookCard_actionsContainer">
-                            <a class="o-editLink" asp-action="Edit" asp-route-id="@b.Id"></a>
+                            <a class="o-editLink" asp-action="Edit" asp-route-id="@book.Id"></a>
                             <span class="c-bookCard_divider"></span>
-                            <button class="o-deleteButton" asp-action="Delete" asp-route-id="@b.Id"></button>
+                            @using (Html.BeginForm())
+                            {
+                                <input type="hidden" name="book" value="@book.Id" />
+                                <button class="o-deleteButton" asp-action="Delete" asp-route-id="@book.Id"></button>
+                            }
                         </span>
                     </div>
                 }
