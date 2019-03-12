@@ -1,0 +1,127 @@
+﻿
+.p-delete_header {
+    text-align: center;
+    border-bottom: .2rem solid var(--color-underline);
+    margin-bottom: 2rem;
+}
+
+.p-delete_headerTitle {
+    color: red;
+    text-transform: uppercase;
+}
+
+.p-delete_errorMessage {
+    font-family: var(--font-family-secondary);
+    font-weight: bold;
+    display: inline-block;
+    padding: 1rem;
+    width: 100%;
+    color: red;
+}
+
+.p-delete_bookContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.p-delete_rating {
+    display: inline-block;
+    width: 1.5rem;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.p-delete_image {
+    max-width: 18rem;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+.p-delete_actionsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-delete_delete {
+    outline: none;
+    border: none;
+    background-color: red;
+    color: var(--color-text-light-primary);
+    padding: .6rem 1rem;
+    margin-right: 3.5rem;
+    text-transform: uppercase;
+}
+
+    .p-delete_delete:hover {
+        background-color: darkred;
+    }
+
+    .p-delete_delete::before {
+        font-family: var(--font-family-fontAwesome);
+        font-weight: var(--font-weight-fontAwesome-solid);
+        content: var(--fontAwesome-trash);
+        color: floralwhite;
+        margin-right: .6rem;
+    }
+
+.p-delete_cancel {
+    background-color: orange;
+    color: var(--color-text-light-primary);
+    padding: .6rem 1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+    .p-delete_cancel:hover {
+        background-color: darkorange;
+    }
+
+    .p-delete_cancel::before {
+        font-family: var(--font-family-fontAwesome);
+        font-weight: var(--font-weight-fontAwesome-solid);
+        content: var(--fontAwesome-cancel);
+        color: floralwhite;
+        margin-right: .6rem;
+    }
+
+
+@media (min-width: 56rem) {
+
+    .p-delete_header {
+        margin-bottom: 3rem;
+    }
+
+    .p-delete_bookContainer {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .p-delete_image {
+        max-width: 20rem;
+        margin-left: 6rem;
+        margin-bottom: 4rem;
+    }
+
+    .p-delete_delete {
+        margin-right: 6rem;
+        padding: 1rem 1.5rem;
+    }
+
+        .p-delete_delete::before {
+            font-size: 1.3rem;
+        }
+
+    .p-delete_cancel {
+        padding: 1rem 1.5rem;
+    }
+
+        .p-delete_cancel::before {
+            font-size: 1.3rem;
+        }
+
+}

@@ -24,26 +24,35 @@ main {
     flex-grow: 1;
 }
 
+/* */
 
-  h1 {
-    margin-top: 0;
-    font-size: 2rem;
-  }
+h1 {
+margin-top: 0;
+font-size: 2rem;
+}
 
-  h2 {
-      text-align: center;
-  }
+h2 {
+    text-align: center;
+}
 
-  p {
-    line-height: 1.5;
-    max-width: 27rem;
-    text-align: left;
+p {
+line-height: 1.5;
+max-width: 27rem;
+text-align: left;
+font-family: var(--font-family-secondary);
+}
+
+section {
+    margin-bottom: 4rem;
+}
+
+button {
     font-family: var(--font-family-secondary);
-  }
+}
 
-  section {
-      margin-bottom: 4rem;
-  }
+a {
+    font-family: var(--font-family-secondary);
+}
 
 
   @media (min-width: 56rem) {
