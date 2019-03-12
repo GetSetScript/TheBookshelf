@@ -3,25 +3,40 @@
     ViewBag.Title = "Delete";
 }
 
-<main>
+<main class="p-delete">
+    <header class="b-wrapper p-delete_header">
+        <h1 class="p-delete_headerTitle">Delete</h1>
+        <h2 class="p-delete_headerText">Are you sure you want to delete this?</h2>
+        <span class="p-delete_errorMessage">@ViewData["ErrorMessage"]</span>
+    </header>
 
-    <h1>Delete</h1>
-    <p>@ViewData["ErrorMessage"]</p>
-    <h3>Are you sure you want to delete this?</h3>
+    <section class="p-delete_section">
+        <div class="b-wrapper p-delete_bookContainer">
+            <div class="p-delete_bookInfo">
+                <h2 class="p-delete_bookTitle">@Model.Title</h2>
 
-    <div>@Model.Title</div>
+                <h3 class="p-delete_author">@Model.Author</h3>
 
-    <div>@Model.Author</div>
+                @for (var i = 0; i < Model.Rating; i++)
+                {
+                    <img class="p-delete_rating" src="~/images/rating.png" alt="The book rating is @Model.Rating" />
+                }
 
-    <div>@Model.DateRead.ToShortDateString()</div>
+                <p class="p-delete_dateRead">Date Read: @Model.DateRead.ToShortDateString()</p>
+            </div>
 
-    @using (Html.BeginForm())
-    {
-        <form method="post">
-            <button type="submit">Delete</button>
-            <a asp-action="Index">Cancel</a>
-        </form>
-    }
+            <img class="p-delete_image" src="~/images/@Model.ImagePath" />
+        </div>
 
+        @using (Html.BeginForm())
+        {
+            <form method="post">
+                <div class="b-wrapper p-delete_actionsContainer">
+                    <button class="p-delete_delete" type="submit">Delete</button>
+                    <a class="p-delete_cancel" asp-action="Index">Cancel</a>
+                </div>
+            </form>
+        }
+    </section>
 </main>
 

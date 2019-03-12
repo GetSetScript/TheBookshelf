@@ -133,9 +133,7 @@ namespace BookShelf.Controllers
             _logger.LogDebug("Successfully deleted @{book} resource", book);
             return RedirectToAction(nameof(Index));
         }
-
-
-
+        
         //[HttpGet("create")]
         //public IActionResult Create()
         //{
