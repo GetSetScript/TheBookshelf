@@ -1,0 +1,27 @@
+﻿@model Book
+@{
+    ViewBag.Title = "Delete";
+}
+
+<main>
+
+    <h1>Delete</h1>
+    <p>@ViewData["ErrorMessage"]</p>
+    <h3>Are you sure you want to delete this?</h3>
+
+    <div>@Model.Title</div>
+
+    <div>@Model.Author</div>
+
+    <div>@Model.DateRead.ToShortDateString()</div>
+
+    @using (Html.BeginForm())
+    {
+        <form method="post">
+            <button type="submit">Delete</button>
+            <a asp-action="Index">Cancel</a>
+        </form>
+    }
+
+</main>
+

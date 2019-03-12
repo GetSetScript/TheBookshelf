@@ -7,8 +7,8 @@
 
 <main class="p-detail">
     <div class="p-detail_actionsContainer">
-        <button class="p-detail_delete o-deleteButton" asp-action="Delete" asp-route-id="@Model"></button>
-        <a class="p-detail_edit o-editLink" asp-action="Edit" asp-route-id="@Model.Id"></a>
+        <button class="p-detail_delete o-delete" asp-action="Delete" asp-route-id="@Model"></button>
+        <a class="p-detail_edit o-edit" asp-action="Edit" asp-route-id="@Model.Id"></a>
     </div>
     <header class="p-detail_header b-wrapper">
         <h1 class="p-detail_title">@Model.Title</h1>

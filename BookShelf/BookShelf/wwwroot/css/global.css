@@ -11,8 +11,8 @@
 @import url("02_Base/b-classes.css");
 
 /* 03_Objects */
-@import url("03_Objects/o-deleteButton.css");
-@import url("03_Objects/o-editLink.css");
+@import url("03_Objects/o-delete.css");
+@import url("03_Objects/o-edit.css");
 
 /* 04_Components */
 @import url("04_Components/c-bookCard.css");

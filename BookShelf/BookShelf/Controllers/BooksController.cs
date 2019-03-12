@@ -65,8 +65,7 @@ namespace BookShelf.Controllers
             if (book == null)
             {
                 _logger.LogDebug("The book with Id of @{Id} was not found", Id);
-                Response.StatusCode = 404;
-                return View("NotFound");
+                return View(nameof(NotFound));
             }
 
             _logger.LogDebug("Returning Detail View with @{book} resource", book);
@@ -74,31 +73,65 @@ namespace BookShelf.Controllers
             return View(book);
         }
 
-        [HttpPost(), ActionName("Delete")]
-        public async Task<IActionResult> Delete(int id)
+        /// <summary>
+        /// Serves a Delete View for a <see cref="Book"/> resource
+        /// </summary>
+        /// <param name="id">The Id of the book to be deleted</param>
+        /// <param name="saveChangesError">If true will display an error message to the View</param>
+        /// <returns>A Task to be awaited</returns>
+        [HttpGet("delete")]
+        public async Task<IActionResult> Delete(int id, bool? saveChangesError = false)
         {
-            _logger.LogDebug("Attempting to delete book with Id of @{id}", id);
             var book = await _bookRepository.GetByIdAsync(id);
 
             if (book == null)
             {
-                _logger.LogError("Failed to delete @{book} because it was null", book);
-                return new StatusCodeResult(501);
+                _logger.LogError("Failed to serve Delete View because @{book} was null", book);
+                return View(nameof(NotFound));
+            }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] =
+                    "Delete failed. Try again, and if the problem persists " +
+                    "contact the web administrator.";
+            }
+
+            _logger.LogDebug("Returning Delete View with @{book} resource", book);
+
+            return View(book);
+        }
+
+        /// <summary>
+        /// Returns the Index View if successful, otherwise returns to the Delete View with an error
+        /// </summary>
+        /// <param name="id">The Id of the <see cref="Book"/> resource to be deleted</param>
+        /// <returns>A Task to be awaited</returns>
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            _logger.LogDebug("Attempting to delete book resourece with Id of @{id}", id);
+            
+            var book = await _bookRepository.GetByIdAsync(id);
+
+            if (book == null)
+            {
+                _logger.LogDebug("The book with Id of @{Id} was not found", id);
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
 
             try
             {
                 await _bookRepository.DeleteAsync(book);
-            } 
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to delete @{book}", book);
-                return new StatusCodeResult(501);
+                return RedirectToAction(nameof(Delete), new { id = book.Id, saveChangesError = true });
             }
 
             _logger.LogDebug("Successfully deleted @{book} resource", book);
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         //[HttpGet("create")]

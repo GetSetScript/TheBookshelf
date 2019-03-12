@@ -9,6 +9,7 @@
 .c-bookCard_imageDetail {
     border: 0;
     display: inline-block;
+    width: 100%;
 }
 
 .c-bookCard_image {

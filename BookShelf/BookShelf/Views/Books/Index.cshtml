@@ -20,13 +20,9 @@
                             <span class="c-bookCard_rating">@(book.Rating)</span>
                         </span>
                         <span class="c-bookCard_actionsContainer">
-                            <a class="o-editLink" asp-action="Edit" asp-route-id="@book.Id"></a>
+                            <a class="o-edit" asp-action="Edit" asp-route-id="@book.Id"></a>
                             <span class="c-bookCard_divider"></span>
-                            @using (Html.BeginForm())
-                            {
-                                <input type="hidden" name="book" value="@book.Id" />
-                                <button class="o-deleteButton" asp-action="Delete" asp-route-id="@book.Id"></button>
-                            }
+                            <a class="o-delete" asp-action="Delete" asp-route-id="@book.Id"></a>                            
                         </span>
                     </div>
                 }

@@ -30,6 +30,21 @@
             <param name="Id">The id of the <see cref="T:BookShelf.Models.Book"/> resource</param>
             <returns>A Task to be awaited</returns>
         </member>
+        <member name="M:BookShelf.Controllers.BooksController.Delete(System.Int32,System.Nullable{System.Boolean})">
+            <summary>
+            Serves a Delete View for a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="id">The Id of the book to be deleted</param>
+            <param name="saveChangesError">If true will display an error message to the View</param>
+            <returns>A Task to be awaited</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.Delete(System.Int32)">
+            <summary>
+            Returns the Index View if successful, otherwise returns to the Delete View with an error
+            </summary>
+            <param name="id">The Id of the <see cref="T:BookShelf.Models.Book"/> resource to be deleted</param>
+            <returns>A Task to be awaited</returns>
+        </member>
         <member name="T:BookShelf.Core.BookshelfMappingProfile">
             <summary>
             Represents the object mapping profiles for the bookshelf application

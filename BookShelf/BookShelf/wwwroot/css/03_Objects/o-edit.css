@@ -1,14 +1,14 @@
-﻿.o-editLink {
+﻿.o-edit {
     font-family: var(--font-family-fontAwesome);
     font-weight: var(--font-weight-fontAwesome-solid);
     text-decoration: none;
 }
 
-    .o-editLink:hover::before {
+    .o-edit:hover::before {
         color: var(--color-active-hover);
     }
 
-    .o-editLink::before {
+    .o-edit::before {
         content: var(--fontAwesome-edit);
         display: inline-block;
         color: var(--color-active);
