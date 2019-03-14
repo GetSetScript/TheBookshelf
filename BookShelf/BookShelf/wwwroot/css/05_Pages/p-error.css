@@ -1,0 +1,11 @@
+﻿.p-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-error_title {
+    text-align: center;
+    font-size: 5rem;
+    color: red;
+}

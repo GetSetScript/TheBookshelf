@@ -1,0 +1,53 @@
+﻿@model BookDto
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<!-- Html.ValidationSummary() used for putting validation at the top -->
+<main>
+    <form method="post" enctype="multipart/form-data">
+        <div>
+            <label asp-for="Title"></label>
+            <input asp-for="Title"
+                   placeholder="Title" />
+            <span asp-validation-for="Title"></span>
+        </div>
+
+        <div>
+            <label asp-for="Author"></label>
+            <input asp-for="Author" placeholder="Author" />
+            <span asp-validation-for="Author"></span>
+        </div>
+
+        <div>
+            <label asp-for="Rating"></label>
+            <input asp-for="Rating" placeholder="Rating" />
+            <span asp-validation-for="Rating"></span>
+        </div>
+
+        <div>
+            <label asp-for="DateRead"></label>
+            <input asp-for="DateRead" type="date" placeholder="Date Read" />
+            <span asp-validation-for="DateRead"></span>
+        </div>
+
+        <div>
+            <label asp-for="Image"></label>
+            <input asp-for="Image" placeholder="Image" type="file" />
+            <span asp-validation-for="Image"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" placeholder="Description" rows="14" cols="30"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+
+        <button>Submit</button>
+        <a asp-action="Index">Cancel</a>
+    </form>
+</main>
+
+
