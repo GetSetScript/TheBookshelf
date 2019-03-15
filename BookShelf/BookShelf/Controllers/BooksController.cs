@@ -13,6 +13,7 @@ using ImageMagick;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace BookShelf.Controllers
@@ -25,42 +26,54 @@ namespace BookShelf.Controllers
         private readonly IMapper _mapper;
         private readonly IBookRepositoryService _bookRepository;
         private readonly ILogger<BooksController> _logger;
-        private readonly IImageAdjuster _imageAdjuster;
-        private readonly IHostingEnvironment _hosting;
-
-        private const int PageSize = 9;
+        private readonly IBookImageService _imageService;
+        private readonly IConfiguration _config;
+        
+        private readonly int PageSize;
+        private readonly int BookImageSize;
 
         /// <summary>
         /// Creates a new instance of <see cref="BooksController"/>
         /// </summary>
         /// <param name="mapper">Used for mapping objects</param>
-        /// <param name="bookRepository">Used for manipulating and accessing book resources</param>
+        /// <param name="bookRepository">Used for manipulating and accessing <see cref="Book"/> resources</param>
         /// <param name="logger">Used for logging</param>
-        /// <param name="imageAdjuster">Used for adjusting and saving <see cref="IFormFile"/></param>
-        /// <param name="hosting">Used to get information about the hosting environment</param>
+        /// <param name="imageService">Used for saving and deleting <see cref="Book"/> Images</param>
+        /// <param name="config">Used to access application configuration</param>
         public BooksController(IMapper mapper, IBookRepositoryService bookRepository, 
-                               ILogger<BooksController> logger, IImageAdjuster imageAdjuster,
-                               IHostingEnvironment hosting)
+                               ILogger<BooksController> logger, IBookImageService imageService,
+                               IConfiguration config)
         {
             _mapper = mapper;
             _bookRepository = bookRepository;
             _logger = logger;
-            _imageAdjuster = imageAdjuster;
-            _hosting = hosting;
+            _imageService = imageService;
+            _config = config;
+
+            int.TryParse(_config["Books:PageSize"], out PageSize);
+            int.TryParse(_config["Books:ImageSize"], out BookImageSize);
         }
 
         /// <summary>
-        /// Serves the <see cref="Book"/> Index View
+        /// Serves the <see cref="BookViewModel{TContent}"/> Index View
         /// </summary>
-        /// <returns>The View that matches this Action</returns>
+        /// <returns>The View that displays a paginated list of <see cref="BookViewModel{TContent}"/></returns>
         [HttpGet]
         public IActionResult Index(int? Id)
         {
-            var books = PaginatedList<Book>.ReturnPaginated(_bookRepository.GetAll(), Id ?? 1, PageSize);
+            var sortedBooks = _bookRepository.GetAll().OrderByDescending(b => b.DateCreated);
 
-            _logger.LogDebug("Returning Index View with @{books} resources, with page size of @{pageSize} and requested page index of @{Id}", books, PageSize, Id);
+            var books = PaginatedList<Book>.ReturnPaginated(sortedBooks, Id ?? 1, PageSize);
             
-            return View(books);
+            var bookView = new BookViewModel<PaginatedList<Book>>()
+            {
+                Content = books,
+                NoImagePath = _config["Books:NoImagePath"]
+            };
+
+            _logger.LogDebug("Returning Index View with @{bookView} resources, with page size of @{pageSize} and requested page index of @{Id}", bookView, PageSize, Id);
+            
+            return View(bookView);
         }
 
         /// <summary>
@@ -81,9 +94,15 @@ namespace BookShelf.Controllers
                 return View(nameof(NotFound));
             }
 
-            _logger.LogDebug("Returning Detail View with @{book} resource", book);
+            var bookView = new BookViewModel<Book>()
+            {
+                Content = book,
+                NoImagePath = _config["Books:NoImagePath"]
+            };
 
-            return View(book);
+            _logger.LogDebug("Returning Detail View with @{bookView} resource", bookView);
+
+            return View(bookView);
         }
 
         /// <summary>
@@ -105,9 +124,15 @@ namespace BookShelf.Controllers
                 return View(nameof(NotFound));
             }
 
-            _logger.LogDebug("Returning Delete View with @{book} resource", book);
+            var bookView = new BookViewModel<Book>()
+            {
+                Content = book,
+                NoImagePath = _config["Books:NoImagePath"]
+            };
 
-            return View(book);
+            _logger.LogDebug("Returning Delete View with @{bookView} resource", bookView);
+
+            return View(bookView);
         }
 
         /// <summary>
@@ -139,6 +164,18 @@ namespace BookShelf.Controllers
             {
                 _logger.LogError(ex, "Failed to delete @{book}", book);
                 return RedirectToAction("Error", "Errors");
+            }
+
+            if (book.ImagePath != null)
+            {
+                if (_imageService.TryDeleteImage(book))
+                {
+                    _logger.LogDebug("Successfully deleted the @{book.ImagePath} file for @{book}", book.ImagePath, book);
+                }
+                else
+                {
+                    _logger.LogError("Failed to delete the @{book.ImagePath} file for the @{book} resource", book.ImagePath, book);
+                }
             }
 
             _logger.LogDebug("Successfully deleted @{book} resource", book);
@@ -186,15 +223,34 @@ namespace BookShelf.Controllers
                 Rating = model.Rating,
                 DateRead = model.DateRead.Value,
                 Description = model.Description,
-                ImagePath = Path.GetFileName(model.Image.FileName)
+                ImagePath = null,
+                DateCreated = DateTime.Now
             };
+            
+            if (model.Image != null)
+            {
+                var extension = Path.GetExtension(Path.GetFileName(model.Image.FileName));
+
+                book.ImagePath = _imageService.GenerateImagePath(extension);
+            }
 
             try
             {
-                await _bookRepository.CreateAsync(book);
+                if (book.ImagePath != null)
+                {
+                    if (_imageService.TrySaveAndResizeImage(model.Image, BookImageSize, book))
+                    {
+                        _logger.LogDebug("The @{model.Image} for @{book} was successfully saved and resized", model.Image, book);
+                    }
+                    else
+                    {
+                        _logger.LogError("Failed to create @{book} because the @{model.Image} was not created", book, model.Image);
+                        ViewBag.CreateImageError("We were not able to create the book image due to an error, please try again or submit your book entry without the image");
+                        return View();
+                    }
+                }
 
-                var filePath = Path.Combine(_hosting.WebRootPath, "images", book.ImagePath);
-                _imageAdjuster.ResizeAndSave(model.Image, 600, filePath);
+                await _bookRepository.CreateAsync(book);
             }
             catch (Exception ex)
             {

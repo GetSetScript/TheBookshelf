@@ -11,7 +11,7 @@ body {
     margin: 0;
     padding: 0;
     min-width: 22rem;
-    background-image: url("../../images/full-bloom.png");
+    background-image: url("../../images/AppResources/full-bloom.png");
     background-repeat: repeat;
     color: var(--color-text-dark-primary);
 }

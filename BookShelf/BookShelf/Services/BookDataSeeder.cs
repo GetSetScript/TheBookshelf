@@ -19,6 +19,7 @@ namespace BookShelf.Services
         private readonly IHostingEnvironment _hosting;
         private readonly BooksDbContext _context;
         private readonly ILogger<BookDataSeeder> _logger;
+        private readonly IBookImageService _bookImageService;
         private readonly List<Book> _books = new List<Book>();
 
         /// <summary>
@@ -27,11 +28,14 @@ namespace BookShelf.Services
         /// <param name="hosting">Used for getting the Json data from the content root of the application</param>
         /// <param name="context">Used to add the seed data to the database</param>
         /// <param name="logger">Used for logging</param>
-        public BookDataSeeder(IHostingEnvironment hosting, BooksDbContext context, ILogger<BookDataSeeder> logger)
+        /// <param name="bookImageService">Used for seeding <see cref="Book"/> Images</param>
+        public BookDataSeeder(IHostingEnvironment hosting, BooksDbContext context, 
+                              ILogger<BookDataSeeder> logger, IBookImageService bookImageService)
         {
             _hosting = hosting;
             _context = context;
             _logger = logger;
+            _bookImageService = bookImageService;
         }
 
         /// <summary>
@@ -51,8 +55,22 @@ namespace BookShelf.Services
             var books = File.ReadAllText(filePath);
 
             var bookImports = JsonConvert.DeserializeObject<List<Book>>(books);
+            
+            for (int i = 0; i < bookImports.Count; i++)
+            {
+                var imageFileName = bookImports[i].ImagePath;
+                var sourcePath = Path.Combine(_hosting.WebRootPath, "Images", "AppResources", imageFileName);
 
-            _context.AddRange(bookImports);
+                var imageFileNameExtension = Path.GetExtension(imageFileName);
+                var targetFileName = _bookImageService.GenerateImagePath(imageFileNameExtension);
+                var targetPath = Path.Combine(_hosting.WebRootPath, "Images", targetFileName);
+
+                File.Copy(sourcePath, targetPath); // this copies file to new location and renames?
+
+                bookImports[i].ImagePath = targetFileName;
+            }
+            
+            _context.Books.AddRange(bookImports);
             _context.SaveChanges();
 
             if (bookImports.Count() != _context.Books.Count())

@@ -47,7 +47,9 @@ namespace BookShelf
 
             services.AddTransient<BookDataSeeder>();
             services.AddTransient<IBookRepositoryService, BookRepositoryService>();
-            services.AddTransient<IImageAdjuster, ImageAdjuster>();
+               
+            services.AddTransient<IBookImageService, ImageServiceLocal>();
+            //services.AddTransient<IBookImageService, ImageServiceAzure>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

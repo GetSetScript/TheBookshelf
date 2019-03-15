@@ -9,21 +9,21 @@
             Represents the controller that serves the home page and <see cref="T:BookShelf.Models.Book"/> Views
             </summary>
         </member>
-        <member name="M:BookShelf.Controllers.BooksController.#ctor(AutoMapper.IMapper,BookShelf.Services.IBookRepositoryService,Microsoft.Extensions.Logging.ILogger{BookShelf.Controllers.BooksController},BookShelf.Services.IImageAdjuster,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:BookShelf.Controllers.BooksController.#ctor(AutoMapper.IMapper,BookShelf.Services.IBookRepositoryService,Microsoft.Extensions.Logging.ILogger{BookShelf.Controllers.BooksController},BookShelf.Services.IBookImageService,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Creates a new instance of <see cref="T:BookShelf.Controllers.BooksController"/>
             </summary>
             <param name="mapper">Used for mapping objects</param>
-            <param name="bookRepository">Used for manipulating and accessing book resources</param>
+            <param name="bookRepository">Used for manipulating and accessing <see cref="T:BookShelf.Models.Book"/> resources</param>
             <param name="logger">Used for logging</param>
-            <param name="imageAdjuster">Used for adjusting and saving <see cref="T:Microsoft.AspNetCore.Http.IFormFile"/></param>
-            <param name="hosting">Used to get information about the hosting environment</param>
+            <param name="imageService">Used for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images</param>
+            <param name="config">Used to access application configuration</param>
         </member>
         <member name="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})">
             <summary>
-            Serves the <see cref="T:BookShelf.Models.Book"/> Index View
+            Serves the <see cref="T:BookShelf.Models.Dtos.BookViewModel`1"/> Index View
             </summary>
-            <returns>The View that matches this Action</returns>
+            <returns>The View that displays a paginated list of <see cref="T:BookShelf.Models.Dtos.BookViewModel`1"/></returns>
         </member>
         <member name="M:BookShelf.Controllers.BooksController.Detail(System.Int32)">
             <summary>
@@ -197,6 +197,11 @@
             The database Id for the book
             </summary>
         </member>
+        <member name="P:BookShelf.Models.Book.DateCreated">
+            <summary>
+            The Date the book was created and added to the database
+            </summary>
+        </member>
         <member name="P:BookShelf.Models.Book.Title">
             <summary>
             The title of the book
@@ -262,6 +267,22 @@
             The image for the book
             </summary>
         </member>
+        <member name="T:BookShelf.Models.Dtos.BookViewModel`1">
+            <summary>
+            Represents a generic class to be used for displaying models to the <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/>
+            </summary>
+            <typeparam name="TContent">The model resource to be displayed on the <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/></typeparam>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookViewModel`1.Content">
+            <summary>
+            The model resource to be displayed on the <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/>
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookViewModel`1.NoImagePath">
+            <summary>
+            An Object for retrieving the application configuration values
+            </summary>
+        </member>
         <member name="T:BookShelf.Program">
             <summary>
             Represents the entry point of the program
@@ -285,7 +306,7 @@
             Represents a Class that adds default book data to the <see cref="T:BookShelf.Data.BooksDbContext"/>
             </summary>
         </member>
-        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookDataSeeder})">
+        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookDataSeeder},BookShelf.Services.IBookImageService)">
             <summary>
             Creats a new instance of <see cref="T:BookShelf.Services.BookDataSeeder"/>
             </summary>
@@ -351,6 +372,34 @@
             <param name="book">The book to check</param>
             <returns>Returns true if the book exists</returns>
         </member>
+        <member name="T:BookShelf.Services.IBookImageService">
+            <summary>
+            Represents a service for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images
+            </summary>
+        </member>
+        <member name="M:BookShelf.Services.IBookImageService.TryDeleteImage(BookShelf.Models.Book)">
+            <summary>
+            Deletes the image file for a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="book">The book whose image file will be deleted</param>
+            <returns>True if the image file was successfully deleted</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookImageService.TrySaveAndResizeImage(Microsoft.AspNetCore.Http.IFormFile,System.Int32,BookShelf.Models.Book)">
+            <summary>
+            Resizes an <see cref="T:Microsoft.AspNetCore.Http.IFormFile"/> image and saves it to a file
+            </summary>
+            <param name="image">The image to save</param>
+            <param name="width">The width to resize the image to, the aspect ratio is preserved</param>
+            <param name="book">The book the image belongs with</param>
+            <returns>True if the image was successfully saved and resized</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookImageService.GenerateImagePath(System.String)">
+            <summary>
+            Generates a unique string for use as an Image path
+            </summary>
+            <param name="extension">The extension for an image file</param>
+            <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
+        </member>
         <member name="T:BookShelf.Services.IBookRepositoryService">
             <summary>
             Represents the interface for a service that can access and manipulate book resources
@@ -397,31 +446,40 @@
             <param name="book">The book to be updated</param>
             <returns>A Task to await</returns>
         </member>
-        <member name="T:BookShelf.Services.IImageAdjuster">
+        <member name="T:BookShelf.Services.ImageServiceLocal">
             <summary>
-            Represents an interface for adjusting images and saving them 
+            Represents a service for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images
             </summary>
         </member>
-        <member name="M:BookShelf.Services.IImageAdjuster.ResizeAndSave(Microsoft.AspNetCore.Http.IFormFile,System.Int32,System.String)">
+        <member name="M:BookShelf.Services.ImageServiceLocal.#ctor(Microsoft.Extensions.Logging.ILogger{BookShelf.Services.ImageServiceLocal},Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
-            Resizes an image and saves it to a file path
+            Creates a new instace of the <see cref="T:BookShelf.Services.ImageServiceLocal"/>
             </summary>
-            <param name="image">The image to save</param>
-            <param name="width">The width to resize the image to (the aspect ratio is preserved)</param>
-            <param name="filePath">The fully qualified path to save the image to</param>
+            <param name="logger">Used for logging</param>
+            <param name="hosting">Used for retrieving information about the application</param>
         </member>
-        <member name="T:BookShelf.Services.ImageAdjuster">
+        <member name="M:BookShelf.Services.ImageServiceLocal.TrySaveAndResizeImage(Microsoft.AspNetCore.Http.IFormFile,System.Int32,BookShelf.Models.Book)">
             <summary>
-            Represents a service for adjusting images and saving them 
-            </summary>
-        </member>
-        <member name="M:BookShelf.Services.ImageAdjuster.ResizeAndSave(Microsoft.AspNetCore.Http.IFormFile,System.Int32,System.String)">
-            <summary>
-            Resizes an image and saves it to a file path
+            Resizes an <see cref="T:Microsoft.AspNetCore.Http.IFormFile"/> image and saves it to a file
             </summary>
             <param name="image">The image to save</param>
             <param name="width">The width to resize the image to, the aspect ratio is preserved</param>
-            <param name="filePath">The fully qualified path to save the image to</param>
+            <param name="book">The book the image belongs with</param>
+            <returns>True if the image was successfully saved and resized</returns>
+        </member>
+        <member name="M:BookShelf.Services.ImageServiceLocal.TryDeleteImage(BookShelf.Models.Book)">
+            <summary>
+            Deletes the image file for a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="book">The book whose image file will be deleted</param>
+            <returns>True if the image file was successfully deleted</returns>
+        </member>
+        <member name="M:BookShelf.Services.ImageServiceLocal.GenerateImagePath(System.String)">
+            <summary>
+            Generates a unique string for use as an Image path
+            </summary>
+            <param name="extension">The extension for an image file</param>
+            <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
         </member>
         <member name="T:BookShelf.Startup">
             <summary>
