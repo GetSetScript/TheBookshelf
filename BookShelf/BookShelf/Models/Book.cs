@@ -18,6 +18,13 @@ namespace BookShelf.Models
         public int Id { get; set; }
 
         /// <summary>
+        /// The Date the book was created and added to the database
+        /// </summary>
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime DateCreated { get; set; }
+
+        /// <summary>
         /// The title of the book
         /// </summary>
         [Required]

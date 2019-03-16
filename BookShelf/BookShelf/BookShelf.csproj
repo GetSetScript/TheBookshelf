@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
@@ -25,70 +26,73 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\a-game-of-thrones.jpg">
+    <Content Update="wwwroot\images\AppResources\a-game-of-thrones.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\black-beauty.jpg">
+    <Content Update="wwwroot\images\AppResources\black-beauty.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\blue-fingers.jpg">
+    <Content Update="wwwroot\images\AppResources\blue-fingers.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\by-these-ten-bones.jpg">
+    <Content Update="wwwroot\images\AppResources\by-these-ten-bones.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\charlottes-web.jpg">
+    <Content Update="wwwroot\images\AppResources\charlottes-web.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\dark-horse.jpg">
+    <Content Update="wwwroot\images\AppResources\dark-horse.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\dracula.jpg">
+    <Content Update="wwwroot\images\AppResources\dracula.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\einstein-his-life-and-universe.jpg">
+    <Content Update="wwwroot\images\AppResources\einstein-his-life-and-universe.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\full-bloom.png">
+    <Content Update="wwwroot\images\AppResources\empty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\how-to-catch-a-leprechaun.jpg">
+    <Content Update="wwwroot\images\AppResources\full-bloom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\odd-thomas.jpg">
+    <Content Update="wwwroot\images\AppResources\how-to-catch-a-leprechaun.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\one-second-after.jpg">
+    <Content Update="wwwroot\images\AppResources\odd-thomas.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\pride-and-prejudice.jpg">
+    <Content Update="wwwroot\images\AppResources\one-second-after.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\rating.png">
+    <Content Update="wwwroot\images\AppResources\pride-and-prejudice.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\the-bad-seed.jpg">
+    <Content Update="wwwroot\images\AppResources\rating.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\the-book-thief.jpg">
+    <Content Update="wwwroot\images\AppResources\the-bad-seed.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\the-buried-giant.jpg">
+    <Content Update="wwwroot\images\AppResources\the-book-thief.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\the-girl-with-the-dragon-tattoo.jpg">
+    <Content Update="wwwroot\images\AppResources\the-buried-giant.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\the-grid.jpg">
+    <Content Update="wwwroot\images\AppResources\the-girl-with-the-dragon-tattoo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\the-hobbit.jpg">
+    <Content Update="wwwroot\images\AppResources\the-grid.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\the-stand.jpg">
+    <Content Update="wwwroot\images\AppResources\the-hobbit.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\uprooted.jpg">
+    <Content Update="wwwroot\images\AppResources\the-stand.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\AppResources\uprooted.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

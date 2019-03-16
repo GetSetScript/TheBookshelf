@@ -1,21 +1,26 @@
-﻿@model Book
+﻿@model BookViewModel<Book>
 @{
     ViewBag.Title = "Detail";
 
-    var descriptions = Model.Description.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
+    var descriptions = Model.Content.Description.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
+
+    if (string.IsNullOrWhiteSpace(Model.Content.ImagePath))
+    {
+        Model.Content.ImagePath = Model.NoImagePath;
+    }
 }
 
 <main class="p-detail">
     <div class="p-detail_actionsContainer">
-        <button class="p-detail_delete o-delete" asp-action="Delete" asp-route-id="@Model"></button>
-        <a class="p-detail_edit o-edit" asp-action="Edit" asp-route-id="@Model.Id"></a>
+        <button class="p-detail_delete o-delete" asp-action="Delete" asp-route-id="@Model.Content.Id"></button>
+        <a class="p-detail_edit o-edit" asp-action="Edit" asp-route-id="@Model.Content.Id"></a>
     </div>
     <header class="p-detail_header b-wrapper">
-        <h1 class="p-detail_title">@Model.Title</h1>
-        <h2 class="p-detail_author">@Model.Author</h2>
-        @for (var i = 0; i < Model.Rating; i++)
+        <h1 class="p-detail_title">@Model.Content.Title</h1>
+        <h2 class="p-detail_author">@Model.Content.Author</h2>
+        @for (var i = 0; i < Model.Content.Rating; i++)
         {
-            <img class="p-detail_rating" src="~/images/rating.png" alt="The book rating is @Model.Rating" />
+            <img class="p-detail_rating" src="~/images/AppResources/rating.png" alt="The book rating is @Model.Content.Rating" />
         }
     </header>
 
@@ -27,7 +32,7 @@
                     <p class="p-detail_text">@description</p>
                 }
             </div>
-            <img class="p-detail_image" src="~/images/@Model.ImagePath" />
+            <img class="p-detail_image" src="~/images/@Model.Content.ImagePath" />
         </div>
     </section>
 

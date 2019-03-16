@@ -25,7 +25,7 @@
 
 .c-bookCard_star {
     position: absolute;
-    background-image: url("../../images/rating.png");
+    background-image: url("../../images/AppResources/rating.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;

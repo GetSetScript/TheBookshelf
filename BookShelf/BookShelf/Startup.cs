@@ -47,6 +47,9 @@ namespace BookShelf
 
             services.AddTransient<BookDataSeeder>();
             services.AddTransient<IBookRepositoryService, BookRepositoryService>();
+               
+            services.AddTransient<IBookImageService, ImageServiceLocal>();
+            //services.AddTransient<IBookImageService, ImageServiceAzure>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -67,7 +70,7 @@ namespace BookShelf
             }
             else
             {
-                //app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
@@ -80,8 +83,8 @@ namespace BookShelf
                     name: "default",
                     template: "{controller=Books}/{action=Index}/{id?}");
             });
-
-            bookDataSeeder.Seed();
+            
+            bookDataSeeder.TrySeed();
         }
     }
 }
