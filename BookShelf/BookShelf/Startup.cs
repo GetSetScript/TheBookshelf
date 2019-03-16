@@ -83,8 +83,8 @@ namespace BookShelf
                     name: "default",
                     template: "{controller=Books}/{action=Index}/{id?}");
             });
-
-            bookDataSeeder.Seed();
+            
+            bookDataSeeder.TrySeed();
         }
     }
 }

@@ -9,7 +9,6 @@ using BookShelf.Core;
 using BookShelf.Models;
 using BookShelf.Models.Dtos;
 using BookShelf.Services;
-using ImageMagick;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -229,9 +228,7 @@ namespace BookShelf.Controllers
             
             if (model.Image != null)
             {
-                var extension = Path.GetExtension(Path.GetFileName(model.Image.FileName));
-
-                book.ImagePath = _imageService.GenerateImagePath(extension);
+                book.ImagePath = _imageService.GenerateImagePath(Path.GetFileName(model.Image.FileName));
             }
 
             try
@@ -245,7 +242,7 @@ namespace BookShelf.Controllers
                     else
                     {
                         _logger.LogError("Failed to create @{book} because the @{model.Image} was not created", book, model.Image);
-                        ViewBag.CreateImageError("We were not able to create the book image due to an error, please try again or submit your book entry without the image");
+                        ViewBag.CreateImageError = "We were not able to create the book image due to an error, please try again or submit your book entry without the image";
                         return View();
                     }
                 }

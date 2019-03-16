@@ -116,10 +116,11 @@ namespace BookShelf.Services
         /// <summary>
         /// Generates a unique string for use as an Image path
         /// </summary>
-        /// <param name="extension">The extension for an image file</param>
+        /// <param name="filePath">The file path for an image file</param>
         /// <returns>A <see cref="Guid"/> with the image file extension added on at the end</returns>
-        public string GenerateImagePath(string extension)
+        public string GenerateImagePath(string filePath)
         {
+            var extension = Path.GetExtension(filePath);
             var generatedGuid = Guid.NewGuid();
 
             return generatedGuid.ToString() + extension;

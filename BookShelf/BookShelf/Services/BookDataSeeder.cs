@@ -41,33 +41,41 @@ namespace BookShelf.Services
         /// <summary>
         /// Seeds the database with default book data
         /// </summary>
-        public void Seed()
+        public bool TrySeed()
         {
             _logger.LogDebug("Attempting to seed database");
 
             if (_context.Books.Any())
             {
                 _logger.LogDebug("The database already contains data and does not need to be seeded");
-                return;
+                return false;
             }
 
-            var filePath = Path.Combine(_hosting.ContentRootPath, "Data", "BookData.json");
-            var books = File.ReadAllText(filePath);
+            var defaultDataFilePath = Path.Combine(_hosting.ContentRootPath, "Data", "BookData.json");
+            var books = File.ReadAllText(defaultDataFilePath);
 
             var bookImports = JsonConvert.DeserializeObject<List<Book>>(books);
             
             for (int i = 0; i < bookImports.Count; i++)
             {
-                var imageFileName = bookImports[i].ImagePath;
-                var sourcePath = Path.Combine(_hosting.WebRootPath, "Images", "AppResources", imageFileName);
+                var imagePath = bookImports[i].ImagePath;
+                var sourceImagePath = Path.Combine(_hosting.WebRootPath, "Images", "AppResources", imagePath);
 
-                var imageFileNameExtension = Path.GetExtension(imageFileName);
-                var targetFileName = _bookImageService.GenerateImagePath(imageFileNameExtension);
-                var targetPath = Path.Combine(_hosting.WebRootPath, "Images", targetFileName);
+                if (!Directory.Exists(sourceImagePath))
+                {
+                    _logger.LogError("The Directory for the @{sourceImagePath} does not exist", sourceImagePath);
+                    return false;
+                }
+                
+                var generatedImagePath = _bookImageService.GenerateImagePath(imagePath);
+                var targetImagePath = Path.Combine(_hosting.WebRootPath, "Images", generatedImagePath);
 
-                File.Copy(sourcePath, targetPath); // this copies file to new location and renames?
+                Directory.CreateDirectory(targetImagePath);
 
-                bookImports[i].ImagePath = targetFileName;
+                File.Copy(sourceImagePath, targetImagePath);
+                _logger.LogDebug("File was copied from @{sourcePath} to @{targetPath}", sourceImagePath, targetImagePath);
+
+                bookImports[i].ImagePath = generatedImagePath;
             }
             
             _context.Books.AddRange(bookImports);
@@ -75,10 +83,12 @@ namespace BookShelf.Services
 
             if (bookImports.Count() != _context.Books.Count())
             {
-                throw new InvalidOperationException("Could not seed the database with all of the Seed Data");
+                _logger.LogError("Could not seed the database with all of the Seed Data");
+                return false;
             }
 
-            _logger.LogDebug("Seeded the database with default book data from @{filePath}", filePath);
+            _logger.LogDebug("Seeded the database with default book data from @{filePath}", defaultDataFilePath);
+            return true;
         }
     }
 }

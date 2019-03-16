@@ -9,7 +9,7 @@ namespace BookShelf.Services
 {
     public class ImageServiceAzure : IBookImageService
     {
-        public string GenerateImagePath(string extension)
+        public string GenerateImagePath(string filePath)
         {
             throw new NotImplementedException();
         }

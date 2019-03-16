@@ -313,6 +313,7 @@
             <param name="hosting">Used for getting the Json data from the content root of the application</param>
             <param name="context">Used to add the seed data to the database</param>
             <param name="logger">Used for logging</param>
+            <param name="bookImageService">Used for seeding <see cref="T:BookShelf.Models.Book"/> Images</param>
         </member>
         <member name="M:BookShelf.Services.BookDataSeeder.Seed">
             <summary>
@@ -397,7 +398,7 @@
             <summary>
             Generates a unique string for use as an Image path
             </summary>
-            <param name="extension">The extension for an image file</param>
+            <param name="filePath">The file path for an image file</param>
             <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
         </member>
         <member name="T:BookShelf.Services.IBookRepositoryService">
@@ -478,7 +479,7 @@
             <summary>
             Generates a unique string for use as an Image path
             </summary>
-            <param name="extension">The extension for an image file</param>
+            <param name="filePath">The file path for an image file</param>
             <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
         </member>
         <member name="T:BookShelf.Startup">
