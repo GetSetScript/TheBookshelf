@@ -16,7 +16,7 @@
 
     $.validator.addMethod("fileExtension", function (value, element) {
         return this.optional(element) || value.match(new RegExp(/\.(png|jpeg|jpg)$/i));
-    }, "The image must have a file extension of png, jpeg, or jpg");
+    }, "The file extension must be png, jpeg, or jpg");
     
 })();
 
