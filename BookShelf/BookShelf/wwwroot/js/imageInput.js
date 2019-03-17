@@ -15,8 +15,7 @@
     }, "file size must be less than 2mb");
 
     $.validator.addMethod("fileExtension", function (value, element) {
-        let extensions = "png|jpeg|jpg";
-        return this.optional(element) || value.match(new RegExp("\\.(" + extensions + ")$", "i"));
+        return this.optional(element) || value.match(new RegExp(/\.(png|jpeg|jpg)$/i));
     }, "The image must have a file extension of png, jpeg, or jpg");
     
 })();
