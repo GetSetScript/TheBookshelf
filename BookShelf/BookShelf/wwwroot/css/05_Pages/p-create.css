@@ -1,0 +1,21 @@
+﻿
+.p-create_title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.p-create_error {
+    color: red;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+    max-width: 80%;
+}
+
+@media (min-width: 56rem) {
+
+    .p-create_title {
+        margin-bottom: 3rem;
+    }
+
+}

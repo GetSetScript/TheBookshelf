@@ -26,73 +26,73 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\a-game-of-thrones.jpg">
+    <Content Update="wwwroot\images\appResources\a-game-of-thrones.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\black-beauty.jpg">
+    <Content Update="wwwroot\images\appResources\black-beauty.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\blue-fingers.jpg">
+    <Content Update="wwwroot\images\appResources\blue-fingers.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\by-these-ten-bones.jpg">
+    <Content Update="wwwroot\images\appResources\by-these-ten-bones.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\charlottes-web.jpg">
+    <Content Update="wwwroot\images\appResources\charlottes-web.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\dark-horse.jpg">
+    <Content Update="wwwroot\images\appResources\dark-horse.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\dracula.jpg">
+    <Content Update="wwwroot\images\appResources\dracula.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\einstein-his-life-and-universe.jpg">
+    <Content Update="wwwroot\images\appResources\einstein-his-life-and-universe.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\empty.png">
+    <Content Update="wwwroot\images\appResources\empty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\full-bloom.png">
+    <Content Update="wwwroot\images\appResources\full-bloom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\how-to-catch-a-leprechaun.jpg">
+    <Content Update="wwwroot\images\appResources\how-to-catch-a-leprechaun.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\odd-thomas.jpg">
+    <Content Update="wwwroot\images\appResources\odd-thomas.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\one-second-after.jpg">
+    <Content Update="wwwroot\images\appResources\one-second-after.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\pride-and-prejudice.jpg">
+    <Content Update="wwwroot\images\appResources\pride-and-prejudice.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\rating.png">
+    <Content Update="wwwroot\images\appResources\rating.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\the-bad-seed.jpg">
+    <Content Update="wwwroot\images\appResources\the-bad-seed.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\the-book-thief.jpg">
+    <Content Update="wwwroot\images\appResources\the-book-thief.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\the-buried-giant.jpg">
+    <Content Update="wwwroot\images\appResources\the-buried-giant.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\the-girl-with-the-dragon-tattoo.jpg">
+    <Content Update="wwwroot\images\appResources\the-girl-with-the-dragon-tattoo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\the-grid.jpg">
+    <Content Update="wwwroot\images\appResources\the-grid.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\the-hobbit.jpg">
+    <Content Update="wwwroot\images\appResources\the-hobbit.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\the-stand.jpg">
+    <Content Update="wwwroot\images\appResources\the-stand.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\AppResources\uprooted.jpg">
+    <Content Update="wwwroot\images\appResources\uprooted.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

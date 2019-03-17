@@ -14,6 +14,9 @@
 @import url("03_Objects/o-delete.css");
 @import url("03_Objects/o-edit.css");
 
+@import url("03_Objects/o-button.css");
+@import url("03_Objects/o-buttonLink.css");
+
 /* 04_Components */
 @import url("04_Components/c-bookCard.css");
 
@@ -24,5 +27,9 @@
 @import url("05_Pages/p-notFound.css");
 @import url("05_Pages/p-delete.css");
 @import url("05_Pages/p-error.css");
+@import url("05_Pages/p-addEditBookForm.css");
+@import url("05_Pages/p-create.css");
+
+
 
 
