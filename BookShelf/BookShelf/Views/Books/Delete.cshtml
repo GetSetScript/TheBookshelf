@@ -6,6 +6,12 @@
     {
         Model.Content.ImagePath = Model.NoImagePath;
     }
+
+    var dateRead = "";
+    if (Model.Content.DateRead.HasValue)
+    {
+         dateRead = Model.Content.DateRead.Value.ToShortDateString();
+    }
 }
 
 <main class="p-delete">
@@ -26,7 +32,7 @@
                     <img class="p-delete_rating" src="~/images/AppResources/rating.png" alt="The book rating is @Model.Content.Rating" />
                 }
 
-                <p class="p-delete_dateRead">Date Read: @Model.Content.DateRead.ToShortDateString()</p>
+                <p class="p-delete_dateRead">Date Read: @dateRead</p>
             </div>
 
             <img class="p-delete_image" src="~/images/@Model.Content.ImagePath" />

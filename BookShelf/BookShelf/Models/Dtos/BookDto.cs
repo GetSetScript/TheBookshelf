@@ -50,7 +50,7 @@ namespace BookShelf.Models.Dtos
         /// </summary>
         [DataType(DataType.Upload, ErrorMessage = "The upload must be a file.")]
         [MaxFileSizeValidation(2000000, ErrorMessage = "The image must be smaller than 2mb")]
-        [FileExtensionValidation(".jpg,.jpeg,.png,.gif", ErrorMessage = "The file type must be one of the following - .jpg, .jpeg, .png, .gif")]
+        [FileExtensionValidation(".jpg,.jpeg,.png", ErrorMessage = "The file type must be one of the following - .jpg, .jpeg, .png, .gif")]
         public IFormFile Image { get; set; }
     }
 }

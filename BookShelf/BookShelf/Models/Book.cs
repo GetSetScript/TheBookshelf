@@ -28,12 +28,14 @@ namespace BookShelf.Models
         /// The title of the book
         /// </summary>
         [Required]
+        [MaxLength(55)]
         public string Title { get; set; }
 
         /// <summary>
         /// The author of the book
         /// </summary>
         [Required]
+        [MaxLength(55)]
         public string Author { get; set; }
 
         /// <summary>
@@ -41,13 +43,14 @@ namespace BookShelf.Models
         /// </summary>
         [Required]
         [MinLength(10)]
+        [MaxLength(7000)]
         public string Description { get; set; }
 
         /// <summary>
         /// The date the book was read
         /// </summary>
         [DataType(DataType.Date)]
-        public DateTime DateRead { get; set; }
+        public DateTime? DateRead { get; set; }
 
         /// <summary>
         /// The 5 star rating for the book

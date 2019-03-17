@@ -1,0 +1,106 @@
+﻿
+.p-addEditBookForm {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    max-width: 29rem;
+}
+
+.p-addEditBookForm_error {
+    color: red;
+}
+
+.p-addEditBookForm_input,
+.p-addEditBookForm_imageContent,
+.p-addEditBookForm_textArea {
+    display: block;
+    width: 100%;
+    padding: .3rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.p-addEditBookForm_note {
+    font-size: .8rem;
+}
+
+.p-addEditBookForm_imageContainer {
+    position: relative;
+}
+
+.p-addEditBookForm_imageButton {
+    text-transform: uppercase;
+    background-color: green;
+    color: var(--color-text-light-primary);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: .5rem 1rem;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+    .p-addEditBookForm_imageButton:hover {
+        background-color: darkgreen;
+    }
+
+.p-addEditBookForm_imageInput {
+    opacity: 0;
+    display: inline;
+    position: absolute;
+}
+
+.p-addEditBookForm_imageContent {
+    background-color: white;
+    padding: .44rem;
+}
+
+.p-addEditBookForm_actionsContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.p-addEditBookForm_submit {
+    margin-right: 2rem;
+}
+
+    .p-addEditBookForm_submit::before {
+        content: var(--fontAwesome-check);
+    }
+
+.p-addEditBookForm_cancel {
+
+}
+
+    .p-addEditBookForm_cancel::before {
+        content: var(--fontAwesome-cancel);
+    }
+
+
+
+@media (min-width: 56rem) {
+
+    .p-addEditBookForm {
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+
+    .p-addEditBookForm_input,
+    .p-addEditBookForm_imageContent,
+    .p-addEditBookForm_textArea {
+        width: 24rem;
+    }
+
+    .p-addEditBookForm_descriptionContainer {
+        margin-left: 4rem;
+    }
+
+    .p-addEditBookForm_textArea {
+        height: 90%;
+        margin-bottom: 0;
+    }
+
+}

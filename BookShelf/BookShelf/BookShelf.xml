@@ -315,7 +315,7 @@
             <param name="logger">Used for logging</param>
             <param name="bookImageService">Used for seeding <see cref="T:BookShelf.Models.Book"/> Images</param>
         </member>
-        <member name="M:BookShelf.Services.BookDataSeeder.Seed">
+        <member name="M:BookShelf.Services.BookDataSeeder.TrySeed">
             <summary>
             Seeds the database with default book data
             </summary>

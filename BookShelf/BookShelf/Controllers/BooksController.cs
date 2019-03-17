@@ -220,7 +220,7 @@ namespace BookShelf.Controllers
                 Title = model.Title,
                 Author = model.Author,
                 Rating = model.Rating,
-                DateRead = model.DateRead.Value,
+                DateRead = model.DateRead,
                 Description = model.Description,
                 ImagePath = null,
                 DateCreated = DateTime.Now

@@ -59,18 +59,18 @@ namespace BookShelf.Services
             for (int i = 0; i < bookImports.Count; i++)
             {
                 var imagePath = bookImports[i].ImagePath;
-                var sourceImagePath = Path.Combine(_hosting.WebRootPath, "Images", "AppResources", imagePath);
+                var sourceImagePath = Path.Combine(_hosting.WebRootPath, "images", "appResources", imagePath);
 
-                if (!Directory.Exists(sourceImagePath))
+                if (!Directory.Exists(Path.GetDirectoryName(sourceImagePath)))
                 {
                     _logger.LogError("The Directory for the @{sourceImagePath} does not exist", sourceImagePath);
                     return false;
                 }
                 
                 var generatedImagePath = _bookImageService.GenerateImagePath(imagePath);
-                var targetImagePath = Path.Combine(_hosting.WebRootPath, "Images", generatedImagePath);
+                var targetImagePath = Path.Combine(_hosting.WebRootPath, "images", generatedImagePath);
 
-                Directory.CreateDirectory(targetImagePath);
+                Directory.CreateDirectory(Path.GetDirectoryName(targetImagePath));
 
                 File.Copy(sourceImagePath, targetImagePath);
                 _logger.LogDebug("File was copied from @{sourcePath} to @{targetPath}", sourceImagePath, targetImagePath);
