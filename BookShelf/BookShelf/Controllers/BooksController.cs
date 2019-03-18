@@ -169,11 +169,11 @@ namespace BookShelf.Controllers
             {
                 if (_imageService.TryDeleteImage(book.ImagePath))
                 {
-                    _logger.LogDebug("Successfully deleted the @{book.ImagePath} image file for @{book}", book.ImagePath, book);
+                    _logger.LogDebug("Successfully deleted the @{book.ImagePath} image for @{book}", book.ImagePath, book);
                 }
                 else
                 {
-                    _logger.LogError("Failed to delete the @{book.ImagePath} image file for the @{book} resource", book.ImagePath, book);
+                    _logger.LogError("Failed to delete the @{book.ImagePath} image for the @{book} resource", book.ImagePath, book);
                 }
             }
 
@@ -184,7 +184,7 @@ namespace BookShelf.Controllers
         /// <summary>
         /// Serves the Create <see cref="Book"/> View
         /// </summary>
-        /// <returns>The View that matches this action</returns>
+        /// <returns>A View for creating <see cref="Book"/> resources</returns>
         [HttpGet("create")]
         public IActionResult Create()
         {
@@ -195,7 +195,7 @@ namespace BookShelf.Controllers
         /// <summary>
         /// Creates a new <see cref="Book"/> resource
         /// </summary>
-        /// <param name="model">The model to bind to</param>
+        /// <param name="model">The Dto containing the information for the new <see cref="Book"/> resource</param>
         /// <returns>The <see cref="Index(int?)"/> View if successful</returns>
         /// <returns>The <see cref="Create()"/> View if unsuccessful</returns>
         /// <returns>The <see cref="ErrorsController.Error"/> View if something went wrong</returns>
@@ -241,7 +241,7 @@ namespace BookShelf.Controllers
                     }
                     else
                     {
-                        _logger.LogError("Failed to create @{book} because the @{model.Image} was not created", book, model.Image);
+                        _logger.LogError("Failed to create @{book} because the @{model.Image} image was not created", book, model.Image);
                         ViewBag.CreateImageError = "We were not able to create the book image due to an error, please try again or submit your book entry without the image";
                         return View();
                     }
@@ -259,6 +259,12 @@ namespace BookShelf.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Serves the Edit Book View
+        /// </summary>
+        /// <param name="id">The Id of the <see cref="Book"/> to be deleted</param>
+        /// <returns>The View that displays a <see cref="EditBookDto"/></returns>
+        /// <returns>The NotFound View if the <see cref="Book"/> resource is not found</returns>
         [HttpGet("edit")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -272,17 +278,31 @@ namespace BookShelf.Controllers
                 return View(nameof(NotFound));
             }
 
-            var bookView = new BookViewModel<Book>()
+            var editBookDto = new EditBookDto()
             {
-                Content = book,
-                NoImagePath = _config["Books:NoImagePath"]
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Rating = book.Rating,
+                DateRead = book.DateRead,
+                Description = book.Description,
+                Image = null,
+                ShouldChangeImage = false
             };
 
-            _logger.LogDebug("Returning Edit View with @{bookView} resource", bookView);
+            _logger.LogDebug("Returning Edit View with @{editBookDto} resource", editBookDto);
 
-            return View(bookView);
+            return View(editBookDto);
         }
 
+        /// <summary>
+        /// Creates a change to a <see cref="Book"/> resource
+        /// </summary>
+        /// <param name="model">The Dto containing the changes for the <see cref="Book"/> resource</param>
+        /// <returns>The <see cref="Index(int?)"/> View if successful</returns>
+        /// <returns>The <see cref="Edit(int)"/> View if unsuccessful</returns>
+        /// <returns>The <see cref="ErrorsController.Error"/> View if something went wrong</returns>
+        /// <returns>The NotFound View if the <see cref="Book"/> resource is not found</returns>
         [HttpPost("edit")]
         public async Task<IActionResult> Edit(EditBookDto model)
         {
@@ -296,7 +316,7 @@ namespace BookShelf.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(); //view is expecting viewmodel....
+                return View();
             }
 
             var book = await _bookRepository.GetByIdAsync(model.Id);
@@ -315,6 +335,7 @@ namespace BookShelf.Controllers
 
             if (model.ShouldChangeImage)
             {
+                _logger.LogDebug("Attempting to change image for @{book}", book);
                 var oldImagePath = book.ImagePath;
 
                 if (model.Image != null)
@@ -327,7 +348,7 @@ namespace BookShelf.Controllers
                     }
                     else
                     {
-                        _logger.LogError("Failed to create @{book} because the @{model.Image} was not created", book, model.Image);
+                        _logger.LogError("Failed to create @{book} because the @{model.Image} image was not created", book, model.Image);
                         ViewBag.EditImageError = "We were not able to create the book image due to an error, please try again or submit your book entry without the image";
                         return View();
                     }
@@ -335,15 +356,19 @@ namespace BookShelf.Controllers
                 else
                 {
                     book.ImagePath = null;
+                    _logger.LogDebug("The image for @{book} was successfully changed to null", book);
                 }
 
-                if (_imageService.TryDeleteImage(oldImagePath))
+                if (oldImagePath != null)
                 {
-                    _logger.LogDebug("Successfully deleted the @{oldImagePath} image file for @{book}", oldImagePath, book);
-                }
-                else
-                {
-                    _logger.LogError("Failed to delete the @{oldImagePath} image file for the @{book} resource", oldImagePath, book);
+                    if (_imageService.TryDeleteImage(oldImagePath))
+                    {
+                        _logger.LogDebug("Successfully deleted the @{oldImagePath} image for @{book}", oldImagePath, book);
+                    }
+                    else
+                    {
+                        _logger.LogError("Failed to delete the @{oldImagePath} image for the @{book} resource", oldImagePath, book);
+                    }
                 }
             }
 
