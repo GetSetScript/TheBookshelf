@@ -14,7 +14,7 @@ namespace BookShelf.Services
             throw new NotImplementedException();
         }
 
-        public bool TryDeleteImage(Book book)
+        public bool TryDeleteImage(string imagePath)
         {
             throw new NotImplementedException();
         }

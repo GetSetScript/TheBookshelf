@@ -1,0 +1,34 @@
+﻿@model BookViewModel<Book>
+@{
+    ViewBag.Title = "Update";
+
+    var editBookDto = new EditBookDto()
+    {
+        Id = Model.Content.Id,
+        Title = Model.Content.Title,
+        Author = Model.Content.Author,
+        Rating = Model.Content.Rating,
+        DateRead = Model.Content.DateRead,
+        Description = Model.Content.Description,
+        Image = null,
+        ShouldChangeImage = false
+    };
+
+}
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/imageInput.js"></script>
+}
+
+<main class="b-wrapper b-spacer">
+    <h1 class="p-update_title">Add Book</h1>
+
+    @if (!string.IsNullOrWhiteSpace(ViewBag.CreateImageError?.ToString()))
+    {
+        <p class="p-update_error">@ViewBag.EditImageError</p>
+    }
+
+    <partial name="Shared/_editBookForm.cshtml" for="@editBookDto" />
+
+</main>

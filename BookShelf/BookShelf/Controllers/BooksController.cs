@@ -113,7 +113,7 @@ namespace BookShelf.Controllers
         [HttpGet("delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            _logger.LogDebug("Attempting to serve Delete View with book Id of @{Id}", id);
+            _logger.LogDebug("Attempting to serve Delete View with book Id of @{id}", id);
 
             var book = await _bookRepository.GetByIdAsync(id);
 
@@ -167,13 +167,13 @@ namespace BookShelf.Controllers
 
             if (book.ImagePath != null)
             {
-                if (_imageService.TryDeleteImage(book))
+                if (_imageService.TryDeleteImage(book.ImagePath))
                 {
-                    _logger.LogDebug("Successfully deleted the @{book.ImagePath} file for @{book}", book.ImagePath, book);
+                    _logger.LogDebug("Successfully deleted the @{book.ImagePath} image file for @{book}", book.ImagePath, book);
                 }
                 else
                 {
-                    _logger.LogError("Failed to delete the @{book.ImagePath} file for the @{book} resource", book.ImagePath, book);
+                    _logger.LogError("Failed to delete the @{book.ImagePath} image file for the @{book} resource", book.ImagePath, book);
                 }
             }
 
@@ -200,7 +200,7 @@ namespace BookShelf.Controllers
         /// <returns>The <see cref="Create()"/> View if unsuccessful</returns>
         /// <returns>The <see cref="ErrorsController.Error"/> View if something went wrong</returns>
         [HttpPost("create")]
-        public async Task<IActionResult> Create(BookDto model)
+        public async Task<IActionResult> Create(AddBookDto model)
         {
             _logger.LogDebug("Attempting to create book resource from @{model}", model);
 
@@ -259,26 +259,106 @@ namespace BookShelf.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[HttpGet("update")]
-        //public IActionResult Update()
-        //{
-        //    return View();
-        //}
+        [HttpGet("edit")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            _logger.LogDebug("Attempting to serve Edit View with book Id of @{id}", id);
 
-        //[HttpPost]
-        //public IActionResult Update(BookDto model)
-        //{
-        //    if (model == null)
-        //    {
-        //        //throw error
-        //    }
+            var book = await _bookRepository.GetByIdAsync(id);
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        //throw error
-        //    }
+            if (book == null)
+            {
+                _logger.LogError("Failed to serve Edit View because @{book} was null", book);
+                return View(nameof(NotFound));
+            }
 
-        //    return View();
-        //}
+            var bookView = new BookViewModel<Book>()
+            {
+                Content = book,
+                NoImagePath = _config["Books:NoImagePath"]
+            };
+
+            _logger.LogDebug("Returning Edit View with @{bookView} resource", bookView);
+
+            return View(bookView);
+        }
+
+        [HttpPost("edit")]
+        public async Task<IActionResult> Edit(EditBookDto model)
+        {
+            _logger.LogDebug("Attempting to edit book resource from @{model}", model);
+
+            if (model == null)
+            {
+                _logger.LogError("Could not edit book resource because the @{model} was null", model);
+                return RedirectToAction("Error", "Errors");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(); //view is expecting viewmodel....
+            }
+
+            var book = await _bookRepository.GetByIdAsync(model.Id);
+
+            if (book == null)
+            {
+                _logger.LogError("Failed to serve Edit View because @{book} was null", book);
+                return View(nameof(NotFound));
+            }
+
+            book.Title = model.Title;
+            book.Author = model.Author;
+            book.Rating = model.Rating;
+            book.Description = model.Description;
+            book.DateRead = model.DateRead;
+
+            if (model.ShouldChangeImage)
+            {
+                var oldImagePath = book.ImagePath;
+
+                if (model.Image != null)
+                {
+                    book.ImagePath = _imageService.GenerateImagePath(Path.GetFileName(model.Image.FileName));
+
+                    if (_imageService.TrySaveAndResizeImage(model.Image, BookImageSize, book))
+                    {
+                        _logger.LogDebug("The @{model.Image} for @{book} was successfully saved and resized", model.Image, book);
+                    }
+                    else
+                    {
+                        _logger.LogError("Failed to create @{book} because the @{model.Image} was not created", book, model.Image);
+                        ViewBag.EditImageError = "We were not able to create the book image due to an error, please try again or submit your book entry without the image";
+                        return View();
+                    }
+                }
+                else
+                {
+                    book.ImagePath = null;
+                }
+
+                if (_imageService.TryDeleteImage(oldImagePath))
+                {
+                    _logger.LogDebug("Successfully deleted the @{oldImagePath} image file for @{book}", oldImagePath, book);
+                }
+                else
+                {
+                    _logger.LogError("Failed to delete the @{oldImagePath} image file for the @{book} resource", oldImagePath, book);
+                }
+            }
+
+            try
+            {
+                await _bookRepository.UpdateAsync(book);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Something went wrong while trying to edit @{book} resource from @{model}", book, model);
+                return RedirectToAction("Error", "Errors");
+            }
+
+            _logger.LogDebug("Successfully edited @{book} resource created from @{model}", book, model);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace BookShelf.Models.Dtos
     /// <summary>
     /// Represents a class for transfering data to a <see cref="Book"/> when adding a resource
     /// </summary>
-    public class BookDto
+    public class AddBookDto
     {
         /// <summary>
         /// The title of the book
