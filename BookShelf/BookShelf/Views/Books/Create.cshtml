@@ -1,6 +1,6 @@
-﻿@model BookDto
+﻿@model AddBookDto
 @{
-    ViewData["Title"] = "Create";
+    ViewBag.Title = "Create";
 }
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -16,7 +16,7 @@
         <p class="p-create_error">@ViewBag.CreateImageError</p>
     }
 
-    <partial name="Shared/_AddEditBookForm.cshtml" for="@Model" />
+    <partial name="Shared/_AddBookForm.cshtml" for="@Model" />
 
 </main>
 

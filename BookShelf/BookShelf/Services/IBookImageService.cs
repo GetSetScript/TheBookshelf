@@ -12,9 +12,9 @@ namespace BookShelf.Services
         /// <summary>
         /// Deletes the image file for a <see cref="Book"/> resource
         /// </summary>
-        /// <param name="book">The book whose image file will be deleted</param>
+        /// <param name="imageName">The name of the image file that will be deleted</param>
         /// <returns>True if the image file was successfully deleted</returns>
-        bool TryDeleteImage(Book book);
+        bool TryDeleteImage(string imageName);
 
         /// <summary>
         /// Resizes an <see cref="IFormFile"/> image and saves it to a file
@@ -28,8 +28,8 @@ namespace BookShelf.Services
         /// <summary>
         /// Generates a unique string for use as an Image path
         /// </summary>
-        /// <param name="filePath">The file path for an image file</param>
+        /// <param name="imageName">The name of the image file</param>
         /// <returns>A <see cref="Guid"/> with the image file extension added on at the end</returns>
-        string GenerateImagePath(string filePath);
+        string GenerateImagePath(string imageName);
     }
 }

@@ -87,40 +87,40 @@ namespace BookShelf.Services
             }
         }
 
-       /// <summary>
-       /// Deletes the image file for a <see cref="Book"/> resource
-       /// </summary>
-       /// <param name="book">The book whose image file will be deleted</param>
-       /// <returns>True if the image file was successfully deleted</returns>
-        public bool TryDeleteImage(Book book)
+        /// <summary>
+        /// Deletes the image file for a <see cref="Book"/> resource
+        /// </summary>
+        /// <param name="imageName">The name of the image file that will be deleted</param>
+        /// <returns>True if the image file was successfully deleted</returns>
+        public bool TryDeleteImage(string imageName)
         {
-            if (book == null)
+            if (imageName == null)
             {
-                _logger.LogError("The @{book} was null", book);
+                _logger.LogError("The @{imageName} was null", imageName);
                 return false;
             }
             
-            var filePath = Path.Combine(_localFilePath, book.ImagePath);
+            var filePath = Path.Combine(_localFilePath, imageName);
 
             if (!File.Exists(filePath))
             {
-                _logger.LogError("The @{book} image file at @{filePath} does not exist}", book, filePath);
+                _logger.LogError("The image file @{imageName} does not exist}", imageName);
                 return false;
             }
 
             File.Delete(filePath);
-            _logger.LogDebug("Successfully deleted the @{book} image file at @{filePath}", book, filePath);
+            _logger.LogDebug("Successfully deleted the image file @{imageName} at @{filePath}", imageName, filePath);
             return true;
         }
 
         /// <summary>
         /// Generates a unique string for use as an Image path
         /// </summary>
-        /// <param name="filePath">The file path for an image file</param>
+        /// <param name="imageName">The name of the image file</param>
         /// <returns>A <see cref="Guid"/> with the image file extension added on at the end</returns>
-        public string GenerateImagePath(string filePath)
+        public string GenerateImagePath(string imageName)
         {
-            var extension = Path.GetExtension(filePath);
+            var extension = Path.GetExtension(imageName);
             var generatedGuid = Guid.NewGuid();
 
             return generatedGuid.ToString() + extension;

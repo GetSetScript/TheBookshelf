@@ -56,7 +56,7 @@
             </summary>
             <returns>The View that matches this action</returns>
         </member>
-        <member name="M:BookShelf.Controllers.BooksController.Create(BookShelf.Models.Dtos.BookDto)">
+        <member name="M:BookShelf.Controllers.BooksController.Create(BookShelf.Models.Dtos.AddBookDto)">
             <summary>
             Creates a new <see cref="T:BookShelf.Models.Book"/> resource
             </summary>
@@ -232,37 +232,37 @@
             The image Path for the book
             </summary>
         </member>
-        <member name="T:BookShelf.Models.Dtos.BookDto">
+        <member name="T:BookShelf.Models.Dtos.AddBookDto">
             <summary>
             Represents a class for transfering data to a <see cref="T:BookShelf.Models.Book"/> when adding a resource
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Title">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Title">
             <summary>
             The title of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Author">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Author">
             <summary>
             The author of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Description">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Description">
             <summary>
             The description of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.DateRead">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.DateRead">
             <summary>
             The date the book was read
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Rating">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Rating">
             <summary>
             The 5 star rating for the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Image">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Image">
             <summary>
             The image for the book
             </summary>
@@ -281,6 +281,51 @@
         <member name="P:BookShelf.Models.Dtos.BookViewModel`1.NoImagePath">
             <summary>
             An Object for retrieving the application configuration values
+            </summary>
+        </member>
+        <member name="T:BookShelf.Models.Dtos.EditBookDto">
+            <summary>
+            Represents a class for transfering data to a <see cref="T:BookShelf.Models.Book"/> when adding a resource
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Id">
+            <summary>
+            The Id of the book to be updated
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Title">
+            <summary>
+            The title of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Author">
+            <summary>
+            The author of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Description">
+            <summary>
+            The description of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.DateRead">
+            <summary>
+            The date the book was read
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Rating">
+            <summary>
+            The 5 star rating for the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.ShouldChangeImage">
+            <summary>
+            Should the image be changed?
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Image">
+            <summary>
+            The image for the book
             </summary>
         </member>
         <member name="T:BookShelf.Program">
@@ -378,11 +423,11 @@
             Represents a service for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images
             </summary>
         </member>
-        <member name="M:BookShelf.Services.IBookImageService.TryDeleteImage(BookShelf.Models.Book)">
+        <member name="M:BookShelf.Services.IBookImageService.TryDeleteImage(System.String)">
             <summary>
             Deletes the image file for a <see cref="T:BookShelf.Models.Book"/> resource
             </summary>
-            <param name="book">The book whose image file will be deleted</param>
+            <param name="imageName">The name of the image file that will be deleted</param>
             <returns>True if the image file was successfully deleted</returns>
         </member>
         <member name="M:BookShelf.Services.IBookImageService.TrySaveAndResizeImage(Microsoft.AspNetCore.Http.IFormFile,System.Int32,BookShelf.Models.Book)">
@@ -398,7 +443,7 @@
             <summary>
             Generates a unique string for use as an Image path
             </summary>
-            <param name="filePath">The file path for an image file</param>
+            <param name="imageName">The name of the image file</param>
             <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
         </member>
         <member name="T:BookShelf.Services.IBookRepositoryService">
@@ -468,18 +513,18 @@
             <param name="book">The book the image belongs with</param>
             <returns>True if the image was successfully saved and resized</returns>
         </member>
-        <member name="M:BookShelf.Services.ImageServiceLocal.TryDeleteImage(BookShelf.Models.Book)">
+        <member name="M:BookShelf.Services.ImageServiceLocal.TryDeleteImage(System.String)">
             <summary>
             Deletes the image file for a <see cref="T:BookShelf.Models.Book"/> resource
             </summary>
-            <param name="book">The book whose image file will be deleted</param>
+            <param name="imageName">The name of the image file that will be deleted</param>
             <returns>True if the image file was successfully deleted</returns>
         </member>
         <member name="M:BookShelf.Services.ImageServiceLocal.GenerateImagePath(System.String)">
             <summary>
             Generates a unique string for use as an Image path
             </summary>
-            <param name="filePath">The file path for an image file</param>
+            <param name="imageName">The name of the image file</param>
             <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
         </member>
         <member name="T:BookShelf.Startup">
