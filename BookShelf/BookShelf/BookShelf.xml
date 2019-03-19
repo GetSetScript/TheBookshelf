@@ -54,16 +54,34 @@
             <summary>
             Serves the Create <see cref="T:BookShelf.Models.Book"/> View
             </summary>
-            <returns>The View that matches this action</returns>
+            <returns>A View for creating <see cref="T:BookShelf.Models.Book"/> resources</returns>
         </member>
         <member name="M:BookShelf.Controllers.BooksController.Create(BookShelf.Models.Dtos.AddBookDto)">
             <summary>
             Creates a new <see cref="T:BookShelf.Models.Book"/> resource
             </summary>
-            <param name="model">The model to bind to</param>
+            <param name="model">The Dto containing the information for the new <see cref="T:BookShelf.Models.Book"/> resource</param>
             <returns>The <see cref="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})"/> View if successful</returns>
             <returns>The <see cref="M:BookShelf.Controllers.BooksController.Create"/> View if unsuccessful</returns>
             <returns>The <see cref="M:BookShelf.Controllers.ErrorsController.Error"/> View if something went wrong</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.Edit(System.Int32)">
+            <summary>
+            Serves the Edit Book View
+            </summary>
+            <param name="id">The Id of the <see cref="T:BookShelf.Models.Book"/> to be deleted</param>
+            <returns>The View that displays a <see cref="T:BookShelf.Models.Dtos.EditBookDto"/></returns>
+            <returns>The NotFound View if the <see cref="T:BookShelf.Models.Book"/> resource is not found</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.Edit(BookShelf.Models.Dtos.EditBookDto)">
+            <summary>
+            Creates a change to a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="model">The Dto containing the changes for the <see cref="T:BookShelf.Models.Book"/> resource</param>
+            <returns>The <see cref="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})"/> View if successful</returns>
+            <returns>The <see cref="M:BookShelf.Controllers.BooksController.Edit(System.Int32)"/> View if unsuccessful</returns>
+            <returns>The <see cref="M:BookShelf.Controllers.ErrorsController.Error"/> View if something went wrong</returns>
+            <returns>The NotFound View if the <see cref="T:BookShelf.Models.Book"/> resource is not found</returns>
         </member>
         <member name="T:BookShelf.Controllers.ErrorsController">
             <summary>
