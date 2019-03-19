@@ -1,18 +1,31 @@
 ﻿
-.p-addEditBookForm {
+.p-edit_title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.p-edit_saveImageError {
+    color: red;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+    max-width: 80%;
+}
+
+.p-edit {
     display: flex;
     flex-direction: column;
     margin-bottom: 1.5rem;
     max-width: 29rem;
 }
 
-.p-addEditBookForm_error {
+.p-edit_error {
     color: red;
 }
 
-.p-addEditBookForm_input,
-.p-addEditBookForm_imageContent,
-.p-addEditBookForm_textArea {
+.p-edit_input,
+.p-edit_imageContent,
+.p-edit_textArea {
     display: block;
     width: 100%;
     padding: .3rem;
@@ -21,15 +34,21 @@
     border: 1px solid grey;
 }
 
-.p-addEditBookForm_note {
+.p-edit_note {
     font-size: .8rem;
+    display: none;
 }
 
-.p-addEditBookForm_imageContainer {
+.p-edit_changeImageInput {
+    margin-bottom: 1rem;
+}
+
+.p-edit_imageContainer {
     position: relative;
+    display: none;
 }
 
-.p-addEditBookForm_imageButton {
+.p-edit_imageButton {
     text-transform: uppercase;
     background-color: green;
     color: var(--color-text-light-primary);
@@ -41,66 +60,67 @@
     border-top-right-radius: 5px;
 }
 
-    .p-addEditBookForm_imageButton:hover {
+    .p-edit_imageButton:hover {
         background-color: darkgreen;
     }
 
-.p-addEditBookForm_imageInput {
+.p-edit_imageInput {
     opacity: 0;
     display: inline;
     position: absolute;
 }
 
-.p-addEditBookForm_imageContent {
+.p-edit_imageContent {
     background-color: white;
     padding: .44rem;
 }
 
-.p-addEditBookForm_actionsContainer {
+.p-edit_actionsContainer {
     display: flex;
     justify-content: center;
     margin-bottom: 3rem;
 }
 
-.p-addEditBookForm_submit {
+.p-edit_submit {
     margin-right: 2rem;
 }
 
-    .p-addEditBookForm_submit::before {
+    .p-edit_submit::before {
         content: var(--fontAwesome-check);
     }
 
-.p-addEditBookForm_cancel {
-
+.p-edit_cancel {
 }
 
-    .p-addEditBookForm_cancel::before {
+    .p-edit_cancel::before {
         content: var(--fontAwesome-cancel);
     }
 
 
-
 @media (min-width: 56rem) {
 
-    .p-addEditBookForm {
+    .p-edit_title {
+        margin-bottom: 3rem;
+    }
+
+    .p-edit {
         flex-direction: row;
         justify-content: center;
         margin-bottom: 3rem;
     }
 
-    .p-addEditBookForm_input,
-    .p-addEditBookForm_imageContent,
-    .p-addEditBookForm_textArea {
+    .p-edit_input,
+    .p-edit_imageContent,
+    .p-edit_textArea {
         width: 24rem;
     }
 
-    .p-addEditBookForm_descriptionContainer {
+    .p-edit_descriptionContainer {
         margin-left: 4rem;
     }
 
-    .p-addEditBookForm_textArea {
+    .p-edit_textArea {
         height: 90%;
         margin-bottom: 0;
     }
-
 }

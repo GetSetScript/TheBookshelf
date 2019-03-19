@@ -5,7 +5,8 @@
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/imageInput.js"></script>
+    <script src="~/js/imageInputValidation.js"></script>
+    <script src="~/js/p-create.js"></script>
 }
 
 <main class="b-wrapper b-spacer">
@@ -13,11 +14,55 @@
 
     @if (!string.IsNullOrWhiteSpace(ViewBag.CreateImageError?.ToString()))
     {
-        <p class="p-create_error">@ViewBag.CreateImageError</p>
+        <p class="p-create_saveImageError">@ViewBag.CreateImageError</p>
     }
 
-    <partial name="Shared/_AddBookForm.cshtml" for="@Model" />
+    <form method="post" enctype="multipart/form-data">
+        <div class="b-wrapper p-create">
+            <div class="p-create_formData">
+                <label class="p-create_label" asp-for="Title">Title: </label>
+                <span class="p-create_error" asp-validation-for="Title"></span>
+                <input class="p-create_input" asp-for="Title" />
 
+                <label class="p-create_label" asp-for="Author">Author: </label>
+                <span class="p-create_error" asp-validation-for="Author"></span>
+                <input class="p-create_input" asp-for="Author" />
+
+                <label class="p-create_label" asp-for="Rating">Rating: </label>
+                <span class="p-create_error" asp-validation-for="Rating"></span>
+                <input class="p-create_input" asp-for="Rating" />
+
+                <label class="p-create_label" asp-for="DateRead">Date Read: </label>
+                <span class="p-create_error" asp-validation-for="DateRead"></span>
+                <input class="p-create_input" asp-for="DateRead" type="date" />
+
+                <div class="p-create_imageContainer">
+                    <span class="p-create_imageLabel">Image: </span>
+                    <span class="p-create_error" asp-validation-for="Image"></span>
+                    <label class="p-create_imageButton" asp-for="Image">Load</label>
+                    <span class="p-create_imageContent">No Image Selected</span>
+                    <input class="p-create_imageInput" asp-for="Image"
+                            type="file" data-rule-fileSize="true" data-rule-fileExtension="true" />
+                </div>
+
+                <p class="p-create_note">
+                    *Note: to prevent stretching please make sure your images
+                    have a width to height ratio of around 7:10
+                </p>
+            </div>
+
+            <div class="p-create_descriptionContainer">
+                <label class="p-create_label" asp-for="Description">Description: </label>
+                <span class="p-create_error" asp-validation-for="Description"></span>
+                <textarea class="p-create_textArea" asp-for="Description" rows="14" cols="30"></textarea>
+            </div>
+        </div>
+
+        <div class="b-wrapper p-create_actionsContainer">
+            <button class="o-button -green p-create_submit">Submit</button>
+            <a class="o-buttonLink -orange p-create_cancel" asp-action="Index">Cancel</a>
+        </div>
+    </form>
 </main>
 
 
