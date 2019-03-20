@@ -5,6 +5,7 @@
     text-transform: uppercase;
     text-decoration: none;
     border-radius: .3rem;
+    display: inline-block;
 }
 
     .o-buttonLink:hover {
@@ -27,6 +28,22 @@
 
     .o-buttonLink.-orange:hover {
         background-color: darkorange;
+    }
+
+.o-buttonLink.-active {
+    background-color: var(--color-active);
+}
+
+    .o-buttonLink.-active:hover {
+        background-color: var(--color-active-hover);
+    }
+
+.o-buttonLink.-red {
+    background-color: #e02d20;
+}
+
+    .o-buttonLink.-red:hover {
+        background-color: #ab1f15;
     }
 
 .o-buttonLink.-green {

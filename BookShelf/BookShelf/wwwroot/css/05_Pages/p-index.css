@@ -2,7 +2,6 @@
 .p-index_title {
     margin-bottom: 2rem;
     padding-bottom: .5rem;
-    border-bottom: 2px solid var(--color-underline);
 }
 
 .p-index_bookCardContainer {
@@ -10,7 +9,7 @@
 
     display: grid;
     grid-template-columns: repeat(auto-fit, var(--p-bookCardWidth));
-    grid-gap: 2.5rem;
+    grid-gap: 3rem;
     justify-content: center;
     margin-bottom: 3rem;
 }
@@ -19,27 +18,36 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 }
 
-.p-index_button {
+.p-index_pageCount {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--color-text-dark-secondary);
+    letter-spacing: .1rem;
+}
+
+.p-index_navButton {
     padding: .5rem;
     background-color: var(--color-active);
     text-decoration: none;
     text-align: center;
     display: inline-block;
-    width: 7rem;
-    font-size: 1.5rem;
+    width: 6.5rem;
+    font-size: 1.2rem;
+    border-radius: .3rem;
 }
 
-    .p-index_button:hover {
+    .p-index_navButton:hover {
         background-color: var(--color-active-hover);
     }
 
-    .p-index_button.-active {
+    .p-index_navButton.-active {
         color: var(--color-text-light-primary);
     }
 
-    .p-index_button.-disabled {
+    .p-index_navButton.-disabled {
         color: var(--color-text-disabled);
         background-color: var(--color-disabled);
         cursor: not-allowed;
@@ -48,13 +56,21 @@
 
 @media (min-width: 56rem) {
 
-    .p-index_bookCardContainer {
-        --p-bookCardWidth: 20rem;
+    .p-index_navButton {
+        width: 8rem;
+        font-size: 1.5rem;
     }
 
-    .p-index_button {
-        width: 10rem;
-        font-size: 2rem;
+    .p-index_pageCount {
+        font-size: 1.3rem;
+    }
+
+    .p-index_bookCardContainer {
+        margin-bottom: 5rem;
+    }
+
+    .p-index_navigation {
+        justify-content: space-evenly;
     }
 }
 

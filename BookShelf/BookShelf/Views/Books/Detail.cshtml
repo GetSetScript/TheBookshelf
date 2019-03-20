@@ -8,33 +8,42 @@
     {
         Model.Content.ImagePath = Model.NoImagePath;
     }
+
+    var dateRead = "";
+    if (Model.Content.DateRead.HasValue)
+    {
+        dateRead = Model.Content.DateRead.Value.ToShortDateString();
+    }
+}
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/05_Pages/p-detail.css" />
 }
 
-<main class="p-detail">
-    <div class="p-detail_actionsContainer">
-        <button class="p-detail_delete o-delete" asp-action="Delete" asp-route-id="@Model.Content.Id"></button>
-        <a class="p-detail_edit o-edit" asp-action="Edit" asp-route-id="@Model.Content.Id"></a>
-    </div>
-    <header class="p-detail_header b-wrapper">
-        <h1 class="p-detail_title">@Model.Content.Title</h1>
-        <h2 class="p-detail_author">@Model.Content.Author</h2>
-        @for (var i = 0; i < Model.Content.Rating; i++)
-        {
-            <img class="p-detail_rating" src="~/images/AppResources/rating.png" alt="The book rating is @Model.Content.Rating" />
-        }
-    </header>
-
-    <section class="p-detail_section">
-        <div class="p-detail_content b-wrapper">
-            <div class="p-detail_description">
-                @foreach (var description in descriptions)
+<main class=" b-wrapper">
+    <a href="javascript:history.go(-1)" class="p-detail_backButton"></a>
+    <div class="p-detail">
+        <img class="p-detail_image" src="~/images/@Model.Content.ImagePath" />
+        <div class="p-detail_content">
+            <h1 class="p-detail_title">@Model.Content.Title</h1>
+            <h2 class="p-detail_author">by @Model.Content.Author</h2>
+            <p class="p-detail_dateRead">Date Read: @dateRead</p>
+            <div class="p-detail_starContainer">
+                @for (var i = 0; i < Model.Content.Rating; i++)
                 {
-                    <p class="p-detail_text">@description</p>
+                    <img class="p-detail_star" src="~/images/AppResources/rating.png" alt="The book rating is @Model.Content.Rating" />
                 }
             </div>
-            <img class="p-detail_image" src="~/images/@Model.Content.ImagePath" />
+            @foreach (var description in descriptions)
+            {
+                <p class="p-detail_text">@description</p>
+            }
+
+            <div class="p-detail_actionsContainer">
+                <a class="p-detail_delete o-buttonLink -red" asp-action="Delete" asp-route-id="@Model.Content.Id">delete</a>
+                <a class="p-detail_edit o-buttonLink -active" asp-action="Edit" asp-route-id="@Model.Content.Id">edit</a>
+            </div>
         </div>
-    </section>
+    </div>
 
 </main>
 
