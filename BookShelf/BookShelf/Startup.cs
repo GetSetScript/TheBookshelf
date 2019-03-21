@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using BookShelf.Core;
 using BookShelf.Data;
 using BookShelf.Services;
@@ -41,15 +40,12 @@ namespace BookShelf
         /// <param name="services">The Service Collection to add the DI Services to</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
-            
             services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BookshelfDatabase")), ServiceLifetime.Scoped);
 
             services.AddTransient<BookDataSeeder>();
             services.AddTransient<IBookRepositoryService, BookRepositoryService>();
                
             services.AddTransient<IBookImageService, ImageServiceLocal>();
-            //services.AddTransient<IBookImageService, ImageServiceAzure>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

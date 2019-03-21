@@ -4,11 +4,6 @@
 
     var descriptions = Model.Content.Description.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
 
-    if (string.IsNullOrWhiteSpace(Model.Content.ImagePath))
-    {
-        Model.Content.ImagePath = Model.NoImagePath;
-    }
-
     var dateRead = "";
     if (Model.Content.DateRead.HasValue)
     {
@@ -32,7 +27,14 @@
     </header>
 
     <section class="p-delete_section">
-        <img class="p-delete_image" src="~/images/@Model.Content.ImagePath" />
+        @if (string.IsNullOrWhiteSpace(Model.Content.ImagePath))
+        {
+            <img class="p-delete_image" src="~/images/appResources/@Model.NoImagePath" />
+        }
+        else
+        {
+            <img class="p-delete_image" src="~/images/userResources/@Model.Content.ImagePath" />
+        }
         <div class="p-delete_content">
             <h3 class="p-delete_title">@Model.Content.Title</h3>
             <h4 class="p-delete_author">by @Model.Content.Author</h4>

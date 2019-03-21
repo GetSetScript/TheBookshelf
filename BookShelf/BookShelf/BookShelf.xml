@@ -9,21 +9,20 @@
             Represents the controller that serves the home page and <see cref="T:BookShelf.Models.Book"/> Views
             </summary>
         </member>
-        <member name="M:BookShelf.Controllers.BooksController.#ctor(AutoMapper.IMapper,BookShelf.Services.IBookRepositoryService,Microsoft.Extensions.Logging.ILogger{BookShelf.Controllers.BooksController},BookShelf.Services.IBookImageService,Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:BookShelf.Controllers.BooksController.#ctor(BookShelf.Services.IBookRepositoryService,Microsoft.Extensions.Logging.ILogger{BookShelf.Controllers.BooksController},BookShelf.Services.IBookImageService,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Creates a new instance of <see cref="T:BookShelf.Controllers.BooksController"/>
             </summary>
-            <param name="mapper">Used for mapping objects</param>
             <param name="bookRepository">Used for manipulating and accessing <see cref="T:BookShelf.Models.Book"/> resources</param>
             <param name="logger">Used for logging</param>
             <param name="imageService">Used for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images</param>
-            <param name="config">Used to access application configuration</param>
+            <param name="config">Used to access the application configuration</param>
         </member>
         <member name="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})">
             <summary>
-            Serves the <see cref="T:BookShelf.Models.Dtos.BookViewModel`1"/> Index View
+            Serves the Index View
             </summary>
-            <returns>The View that displays a paginated list of <see cref="T:BookShelf.Models.Dtos.BookViewModel`1"/></returns>
+            <returns>A View that displays a paginated list of <see cref="T:BookShelf.Models.Dtos.BookViewModel`1"/></returns>
         </member>
         <member name="M:BookShelf.Controllers.BooksController.Detail(System.Int32)">
             <summary>
@@ -93,11 +92,6 @@
             Serves An Error View for the application
             </summary>
             <returns>The View that matches this Action</returns>
-        </member>
-        <member name="T:BookShelf.Core.BookshelfMappingProfile">
-            <summary>
-            Represents the object mapping profiles for the bookshelf application
-            </summary>
         </member>
         <member name="T:BookShelf.Core.DataAnnotations.FileExtensionValidationAttribute">
             <summary>

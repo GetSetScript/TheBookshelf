@@ -16,14 +16,16 @@
         <div class="p-index_bookCardContainer">
             @foreach (var book in Model.Content)
             {
-                if (string.IsNullOrWhiteSpace(book.ImagePath))
-                {
-                    book.ImagePath = Model.NoImagePath;
-                }
-
                 <div class="p-index_bookCard c-bookCard">
                     <a class="c-bookCard_imageDetail" asp-action="Detail" asp-route-id="@book.Id">
-                        <img class="c-bookCard_image" src="~/images/@book.ImagePath" />
+                        @if (string.IsNullOrWhiteSpace(book.ImagePath))
+                        {
+                            <img class="c-bookCard_image" src="~/images/appResources/@Model.NoImagePath" />
+                        }
+                        else
+                        {
+                            <img class="c-bookCard_image" src="~/images/userResources/@book.ImagePath" />
+                        }
                     </a>
                     <h3 class="c-bookCard_title">@book.Title</h3>
                     <div class="c-bookCard_author">by @book.Author</div>

@@ -55,7 +55,13 @@ namespace BookShelf.Services
             var books = File.ReadAllText(defaultDataFilePath);
 
             var bookImports = JsonConvert.DeserializeObject<List<Book>>(books);
-            
+
+            var oldImageDirectory = Path.Combine(_hosting.WebRootPath, "images", "userResources");
+            if (Directory.Exists(oldImageDirectory))
+            {
+                Directory.Delete(oldImageDirectory, true);
+            }
+
             for (int i = 0; i < bookImports.Count; i++)
             {
                 var imagePath = bookImports[i].ImagePath;
@@ -68,7 +74,7 @@ namespace BookShelf.Services
                 }
                 
                 var generatedImagePath = _bookImageService.GenerateImagePath(imagePath);
-                var targetImagePath = Path.Combine(_hosting.WebRootPath, "images", generatedImagePath);
+                var targetImagePath = Path.Combine(_hosting.WebRootPath, "images", "userResources", generatedImagePath);
 
                 Directory.CreateDirectory(Path.GetDirectoryName(targetImagePath));
 

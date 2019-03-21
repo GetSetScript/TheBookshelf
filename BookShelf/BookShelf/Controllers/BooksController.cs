@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using BookShelf.Core;
 using BookShelf.Models;
 using BookShelf.Models.Dtos;
@@ -22,7 +21,6 @@ namespace BookShelf.Controllers
     /// </summary>
     public class BooksController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IBookRepositoryService _bookRepository;
         private readonly ILogger<BooksController> _logger;
         private readonly IBookImageService _imageService;
@@ -34,16 +32,13 @@ namespace BookShelf.Controllers
         /// <summary>
         /// Creates a new instance of <see cref="BooksController"/>
         /// </summary>
-        /// <param name="mapper">Used for mapping objects</param>
         /// <param name="bookRepository">Used for manipulating and accessing <see cref="Book"/> resources</param>
         /// <param name="logger">Used for logging</param>
         /// <param name="imageService">Used for saving and deleting <see cref="Book"/> Images</param>
-        /// <param name="config">Used to access application configuration</param>
-        public BooksController(IMapper mapper, IBookRepositoryService bookRepository, 
-                               ILogger<BooksController> logger, IBookImageService imageService,
-                               IConfiguration config)
+        /// <param name="config">Used to access the application configuration</param>
+        public BooksController(IBookRepositoryService bookRepository, ILogger<BooksController> logger, 
+                               IBookImageService imageService, IConfiguration config)
         {
-            _mapper = mapper;
             _bookRepository = bookRepository;
             _logger = logger;
             _imageService = imageService;
@@ -54,9 +49,9 @@ namespace BookShelf.Controllers
         }
 
         /// <summary>
-        /// Serves the <see cref="BookViewModel{TContent}"/> Index View
+        /// Serves the Index View
         /// </summary>
-        /// <returns>The View that displays a paginated list of <see cref="BookViewModel{TContent}"/></returns>
+        /// <returns>A View that displays a paginated list of <see cref="BookViewModel{TContent}"/></returns>
         [HttpGet]
         public IActionResult Index(int? Id)
         {

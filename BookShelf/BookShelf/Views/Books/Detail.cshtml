@@ -3,12 +3,7 @@
     ViewBag.Title = "Detail";
 
     var descriptions = Model.Content.Description.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
-
-    if (string.IsNullOrWhiteSpace(Model.Content.ImagePath))
-    {
-        Model.Content.ImagePath = Model.NoImagePath;
-    }
-
+    
     var dateRead = "";
     if (Model.Content.DateRead.HasValue)
     {
@@ -22,7 +17,14 @@
 <main class=" b-wrapper">
     <a href="javascript:history.go(-1)" class="p-detail_backButton"></a>
     <div class="p-detail">
-        <img class="p-detail_image" src="~/images/@Model.Content.ImagePath" />
+        @if (string.IsNullOrWhiteSpace(Model.Content.ImagePath))
+        {
+            <img class="p-detail_image" src="~/images/appResources/@Model.NoImagePath" />
+        }
+        else
+        {
+            <img class="p-detail_image" src="~/images/userResources/@Model.Content.ImagePath"/>
+        }
         <div class="p-detail_content">
             <h1 class="p-detail_title">@Model.Content.Title</h1>
             <h2 class="p-detail_author">by @Model.Content.Author</h2>
