@@ -1,0 +1,128 @@
+﻿
+.p-edit_title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.p-edit_saveImageError {
+    color: red;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+    max-width: 80%;
+}
+
+.p-edit {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+    max-width: 30rem;
+}
+
+.p-edit_error {
+    color: red;
+}
+
+.p-edit_input,
+.p-edit_imageContent,
+.p-edit_textArea {
+    display: block;
+    width: 100%;
+    padding: .3rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.p-edit_note {
+    font-size: .8rem;
+    display: none;
+}
+
+.p-edit_changeImageInput {
+    margin-bottom: 1rem;
+}
+
+.p-edit_imageContainer {
+    position: relative;
+    display: none;
+}
+
+.p-edit_imageButton {
+    text-transform: uppercase;
+    background-color: var(--color-active);
+    color: var(--color-text-light-primary);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: .5rem 1rem;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+    .p-edit_imageButton:hover {
+        background-color: var(--color-active-hover);
+    }
+
+.p-edit_imageInput {
+    opacity: 0;
+    display: inline;
+    position: absolute;
+}
+
+.p-edit_imageContent {
+    background-color: white;
+    padding: .44rem;
+    overflow: hidden;
+}
+
+.p-edit_actionsContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.p-edit_submit {
+    margin-right: 2rem;
+}
+
+    .p-edit_submit::before {
+        content: var(--fontAwesome-check);
+    }
+
+.p-edit_cancel {
+}
+
+    .p-edit_cancel::before {
+        content: var(--fontAwesome-cancel);
+    }
+
+
+@media (min-width: 56rem) {
+
+    .p-edit_title {
+        margin-bottom: 3rem;
+    }
+
+    .p-edit {
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+
+    .p-edit_input,
+    .p-edit_imageContent,
+    .p-edit_textArea {
+        width: 24rem;
+    }
+
+    .p-edit_descriptionContainer {
+        margin-left: 4rem;
+    }
+
+    .p-edit_textArea {
+        height: 90%;
+        margin-bottom: 0;
+    }
+}

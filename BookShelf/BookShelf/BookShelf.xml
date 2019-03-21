@@ -6,34 +6,128 @@
     <members>
         <member name="T:BookShelf.Controllers.BooksController">
             <summary>
-            Represents the main controller for serving up the home page
+            Represents the controller that serves the home page and <see cref="T:BookShelf.Models.Book"/> Views
             </summary>
         </member>
-        <member name="M:BookShelf.Controllers.BooksController.#ctor(AutoMapper.IMapper,BookShelf.Services.IBookRepositoryService,Microsoft.Extensions.Logging.ILogger{BookShelf.Controllers.BooksController})">
+        <member name="M:BookShelf.Controllers.BooksController.#ctor(BookShelf.Services.IBookRepositoryService,Microsoft.Extensions.Logging.ILogger{BookShelf.Controllers.BooksController},BookShelf.Services.IBookImageService,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Creates a new instance of <see cref="T:BookShelf.Controllers.BooksController"/>
             </summary>
-            <param name="mapper">Used for mapping objects</param>
-            <param name="bookRepository">Used for manipulating and accessing book resources</param>
+            <param name="bookRepository">Used for manipulating and accessing <see cref="T:BookShelf.Models.Book"/> resources</param>
             <param name="logger">Used for logging</param>
+            <param name="imageService">Used for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images</param>
+            <param name="config">Used to access the application configuration</param>
         </member>
         <member name="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})">
             <summary>
-            Serves the homepage of the website
+            Serves the Index View
             </summary>
-            <returns>The Index page view</returns>
+            <returns>A View that displays a paginated list of <see cref="T:BookShelf.Models.Dtos.BookViewModel`1"/></returns>
         </member>
         <member name="M:BookShelf.Controllers.BooksController.Detail(System.Int32)">
             <summary>
-            Serves a detail view of a <see cref="T:BookShelf.Models.Book"/> resource
+            Serves the <see cref="T:BookShelf.Models.Book"/> Detail View
             </summary>
-            <param name="Id">The id of the <see cref="T:BookShelf.Models.Book"/> resource</param>
-            <returns>A Task to be awaited</returns>
+            <param name="id">The id of the <see cref="T:BookShelf.Models.Book"/> resource</param>
+            <returns>The View that matches this Action</returns>
+            <returns>The NotFound View if the <see cref="T:BookShelf.Models.Book"/> resource is not found</returns>
         </member>
-        <member name="T:BookShelf.Core.BookshelfMappingProfile">
+        <member name="M:BookShelf.Controllers.BooksController.Delete(System.Int32)">
             <summary>
-            Represents the object mapping profiles for the bookshelf application
+            Serves the Delete <see cref="T:BookShelf.Models.Book"/> View
             </summary>
+            <param name="id">The Id of the <see cref="T:BookShelf.Models.Book"/> to be deleted</param>
+            <returns>The View that matches this Action</returns>
+            <returns>The NotFound View if the <see cref="T:BookShelf.Models.Book"/> resource is not found</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.DeleteConfirmed(System.Int32)">
+            <summary>
+            Deletes a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="id">The Id of the <see cref="T:BookShelf.Models.Book"/> resource to be deleted</param>
+            <returns>The <see cref="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})"/> View if successful</returns>
+            <returns>The NotFound View if the <see cref="T:BookShelf.Models.Book"/> resource is not found</returns>
+            <returns>The <see cref="M:BookShelf.Controllers.ErrorsController.Error"/> View if something went wrong</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.Create">
+            <summary>
+            Serves the Create <see cref="T:BookShelf.Models.Book"/> View
+            </summary>
+            <returns>A View for creating <see cref="T:BookShelf.Models.Book"/> resources</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.Create(BookShelf.Models.Dtos.AddBookDto)">
+            <summary>
+            Creates a new <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="model">The Dto containing the information for the new <see cref="T:BookShelf.Models.Book"/> resource</param>
+            <returns>The <see cref="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})"/> View if successful</returns>
+            <returns>The <see cref="M:BookShelf.Controllers.BooksController.Create"/> View if unsuccessful</returns>
+            <returns>The <see cref="M:BookShelf.Controllers.ErrorsController.Error"/> View if something went wrong</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.Edit(System.Int32)">
+            <summary>
+            Serves the Edit Book View
+            </summary>
+            <param name="id">The Id of the <see cref="T:BookShelf.Models.Book"/> to be deleted</param>
+            <returns>The View that displays a <see cref="T:BookShelf.Models.Dtos.EditBookDto"/></returns>
+            <returns>The NotFound View if the <see cref="T:BookShelf.Models.Book"/> resource is not found</returns>
+        </member>
+        <member name="M:BookShelf.Controllers.BooksController.Edit(BookShelf.Models.Dtos.EditBookDto)">
+            <summary>
+            Creates a change to a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="model">The Dto containing the changes for the <see cref="T:BookShelf.Models.Book"/> resource</param>
+            <returns>The <see cref="M:BookShelf.Controllers.BooksController.Index(System.Nullable{System.Int32})"/> View if successful</returns>
+            <returns>The <see cref="M:BookShelf.Controllers.BooksController.Edit(System.Int32)"/> View if unsuccessful</returns>
+            <returns>The <see cref="M:BookShelf.Controllers.ErrorsController.Error"/> View if something went wrong</returns>
+            <returns>The NotFound View if the <see cref="T:BookShelf.Models.Book"/> resource is not found</returns>
+        </member>
+        <member name="T:BookShelf.Controllers.ErrorsController">
+            <summary>
+            Represents a controller for serving error Views
+            </summary>
+        </member>
+        <member name="M:BookShelf.Controllers.ErrorsController.Error">
+            <summary>
+            Serves An Error View for the application
+            </summary>
+            <returns>The View that matches this Action</returns>
+        </member>
+        <member name="T:BookShelf.Core.DataAnnotations.FileExtensionValidationAttribute">
+            <summary>
+            Represents an attribute for validating file extensions
+            </summary>
+        </member>
+        <member name="M:BookShelf.Core.DataAnnotations.FileExtensionValidationAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:BookShelf.Core.DataAnnotations.FileExtensionValidationAttribute"/>
+            </summary>
+            <param name="fileExtensions">The allowed file extensions</param>
+        </member>
+        <member name="M:BookShelf.Core.DataAnnotations.FileExtensionValidationAttribute.IsValid(System.Object)">
+            <summary>
+            Checks the passed in object for valid file extensions
+            </summary>
+            <param name="value">The object to be validated</param>
+            <returns>Returns true if the object has the correct file extension</returns>
+        </member>
+        <member name="T:BookShelf.Core.DataAnnotations.MaxFileSizeValidationAttribute">
+            <summary>
+            Represents an attribute for validating file size
+            </summary>
+        </member>
+        <member name="M:BookShelf.Core.DataAnnotations.MaxFileSizeValidationAttribute.#ctor(System.Int32)">
+            <summary>
+            Creatse a new instance of the <see cref="T:BookShelf.Core.DataAnnotations.MaxFileSizeValidationAttribute"/>
+            </summary>
+            <param name="maxBytes">The maximum amount of bytes a file is allowed to be</param>
+        </member>
+        <member name="M:BookShelf.Core.DataAnnotations.MaxFileSizeValidationAttribute.IsValid(System.Object)">
+            <summary>
+            Checks the passed in object for a valid file size
+            </summary>
+            <param name="value">The object to be validated</param>
+            <returns>Returns true if the file is under the maximum amount of bytes</returns>
         </member>
         <member name="T:BookShelf.Core.PaginatedList`1">
             <summary>
@@ -115,6 +209,11 @@
             The database Id for the book
             </summary>
         </member>
+        <member name="P:BookShelf.Models.Book.DateCreated">
+            <summary>
+            The Date the book was created and added to the database
+            </summary>
+        </member>
         <member name="P:BookShelf.Models.Book.Title">
             <summary>
             The title of the book
@@ -145,37 +244,98 @@
             The image Path for the book
             </summary>
         </member>
-        <member name="T:BookShelf.Models.Dtos.BookDto">
+        <member name="T:BookShelf.Models.Dtos.AddBookDto">
             <summary>
             Represents a class for transfering data to a <see cref="T:BookShelf.Models.Book"/> when adding a resource
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Title">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Title">
             <summary>
             The title of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Author">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Author">
             <summary>
             The author of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Description">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Description">
             <summary>
             The description of the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.DateRead">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.DateRead">
             <summary>
             The date the book was read
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Rating">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Rating">
             <summary>
             The 5 star rating for the book
             </summary>
         </member>
-        <member name="P:BookShelf.Models.Dtos.BookDto.Image">
+        <member name="P:BookShelf.Models.Dtos.AddBookDto.Image">
+            <summary>
+            The image for the book
+            </summary>
+        </member>
+        <member name="T:BookShelf.Models.Dtos.BookViewModel`1">
+            <summary>
+            Represents a generic class to be used for displaying models to the <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/>
+            </summary>
+            <typeparam name="TContent">The model resource to be displayed on the <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/></typeparam>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookViewModel`1.Content">
+            <summary>
+            The model resource to be displayed on the <see cref="T:Microsoft.AspNetCore.Mvc.ViewResult"/>
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.BookViewModel`1.NoImagePath">
+            <summary>
+            An Object for retrieving the application configuration values
+            </summary>
+        </member>
+        <member name="T:BookShelf.Models.Dtos.EditBookDto">
+            <summary>
+            Represents a class for transfering data to a <see cref="T:BookShelf.Models.Book"/> when adding a resource
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Id">
+            <summary>
+            The Id of the book to be updated
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Title">
+            <summary>
+            The title of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Author">
+            <summary>
+            The author of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Description">
+            <summary>
+            The description of the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.DateRead">
+            <summary>
+            The date the book was read
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Rating">
+            <summary>
+            The 5 star rating for the book
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.ShouldChangeImage">
+            <summary>
+            Should the image be changed?
+            </summary>
+        </member>
+        <member name="P:BookShelf.Models.Dtos.EditBookDto.Image">
             <summary>
             The image for the book
             </summary>
@@ -203,15 +363,16 @@
             Represents a Class that adds default book data to the <see cref="T:BookShelf.Data.BooksDbContext"/>
             </summary>
         </member>
-        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookDataSeeder})">
+        <member name="M:BookShelf.Services.BookDataSeeder.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,BookShelf.Data.BooksDbContext,Microsoft.Extensions.Logging.ILogger{BookShelf.Services.BookDataSeeder},BookShelf.Services.IBookImageService)">
             <summary>
             Creats a new instance of <see cref="T:BookShelf.Services.BookDataSeeder"/>
             </summary>
             <param name="hosting">Used for getting the Json data from the content root of the application</param>
             <param name="context">Used to add the seed data to the database</param>
             <param name="logger">Used for logging</param>
+            <param name="bookImageService">Used for seeding <see cref="T:BookShelf.Models.Book"/> Images</param>
         </member>
-        <member name="M:BookShelf.Services.BookDataSeeder.Seed">
+        <member name="M:BookShelf.Services.BookDataSeeder.TrySeed">
             <summary>
             Seeds the database with default book data
             </summary>
@@ -269,6 +430,34 @@
             <param name="book">The book to check</param>
             <returns>Returns true if the book exists</returns>
         </member>
+        <member name="T:BookShelf.Services.IBookImageService">
+            <summary>
+            Represents a service for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images
+            </summary>
+        </member>
+        <member name="M:BookShelf.Services.IBookImageService.TryDeleteImage(System.String)">
+            <summary>
+            Deletes the image file for a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="imageName">The name of the image file that will be deleted</param>
+            <returns>True if the image file was successfully deleted</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookImageService.TrySaveAndResizeImage(Microsoft.AspNetCore.Http.IFormFile,System.Int32,BookShelf.Models.Book)">
+            <summary>
+            Resizes an <see cref="T:Microsoft.AspNetCore.Http.IFormFile"/> image and saves it to a file
+            </summary>
+            <param name="image">The image to save</param>
+            <param name="width">The width to resize the image to, the aspect ratio is preserved</param>
+            <param name="book">The book the image belongs with</param>
+            <returns>True if the image was successfully saved and resized</returns>
+        </member>
+        <member name="M:BookShelf.Services.IBookImageService.GenerateImagePath(System.String)">
+            <summary>
+            Generates a unique string for use as an Image path
+            </summary>
+            <param name="imageName">The name of the image file</param>
+            <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
+        </member>
         <member name="T:BookShelf.Services.IBookRepositoryService">
             <summary>
             Represents the interface for a service that can access and manipulate book resources
@@ -314,6 +503,41 @@
             </summary>
             <param name="book">The book to be updated</param>
             <returns>A Task to await</returns>
+        </member>
+        <member name="T:BookShelf.Services.ImageServiceLocal">
+            <summary>
+            Represents a service for saving and deleting <see cref="T:BookShelf.Models.Book"/> Images
+            </summary>
+        </member>
+        <member name="M:BookShelf.Services.ImageServiceLocal.#ctor(Microsoft.Extensions.Logging.ILogger{BookShelf.Services.ImageServiceLocal},Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Creates a new instace of the <see cref="T:BookShelf.Services.ImageServiceLocal"/>
+            </summary>
+            <param name="logger">Used for logging</param>
+            <param name="hosting">Used for retrieving information about the application</param>
+        </member>
+        <member name="M:BookShelf.Services.ImageServiceLocal.TrySaveAndResizeImage(Microsoft.AspNetCore.Http.IFormFile,System.Int32,BookShelf.Models.Book)">
+            <summary>
+            Resizes an <see cref="T:Microsoft.AspNetCore.Http.IFormFile"/> image and saves it to a file
+            </summary>
+            <param name="image">The image to save</param>
+            <param name="width">The width to resize the image to, the aspect ratio is preserved</param>
+            <param name="book">The book the image belongs with</param>
+            <returns>True if the image was successfully saved and resized</returns>
+        </member>
+        <member name="M:BookShelf.Services.ImageServiceLocal.TryDeleteImage(System.String)">
+            <summary>
+            Deletes the image file for a <see cref="T:BookShelf.Models.Book"/> resource
+            </summary>
+            <param name="imageName">The name of the image file that will be deleted</param>
+            <returns>True if the image file was successfully deleted</returns>
+        </member>
+        <member name="M:BookShelf.Services.ImageServiceLocal.GenerateImagePath(System.String)">
+            <summary>
+            Generates a unique string for use as an Image path
+            </summary>
+            <param name="imageName">The name of the image file</param>
+            <returns>A <see cref="T:System.Guid"/> with the image file extension added on at the end</returns>
         </member>
         <member name="T:BookShelf.Startup">
             <summary>

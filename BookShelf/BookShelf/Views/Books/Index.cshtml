@@ -1,52 +1,69 @@
-﻿@model PaginatedList<Book>
+﻿@model BookViewModel<PaginatedList<Book>>
 @{
     ViewBag.Title = "Index";
 }
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/05_Pages/p-index.css" />
+}
+@section Scripts {
+    <script src="~/js/p-index.js"></script>
+}
 
-<main class="p-index">
-    <section>
-        <div class="b-wrapper">
-            <h2 class="p-index_title">Sample Books</h2>
+<main>
+    <div class="b-wrapper">
+        <h2 class="p-index_title">Sample Books</h2>
 
-            <div class="p-index_bookCardContainer">
-                @foreach (var b in Model)
-                {
-                    <div class="p-index_bookCard c-bookCard">
-                        <a class="c-bookCard_imageDetail" asp-action="Detail" asp-route-id="@b.Id">
-                            <img class="c-bookCard_image" src="~/images/@b.ImagePath" />
-                        </a>
-                        <h3 class="c-bookCard_title">@b.Title</h3>
-                        <span class="c-bookCard_star">
-                            <span class="c-bookCard_rating">@(b.Rating)</span>
-                        </span>
-                        <span class="c-bookCard_actionsContainer">
-                            <a class="o-editLink" asp-action="Edit" asp-route-id="@b.Id"></a>
-                            <span class="c-bookCard_divider"></span>
-                            <button class="o-deleteButton" asp-action="Delete" asp-route-id="@b.Id"></button>
-                        </span>
+        <div class="p-index_bookCardContainer">
+            @foreach (var book in Model.Content)
+            {
+                <div class="p-index_bookCard c-bookCard">
+                    <a class="c-bookCard_imageDetail" asp-action="Detail" asp-route-id="@book.Id">
+                        @if (string.IsNullOrWhiteSpace(book.ImagePath))
+                        {
+                            <img class="c-bookCard_image" src="~/images/appResources/@Model.NoImagePath" />
+                        }
+                        else
+                        {
+                            <img class="c-bookCard_image" src="~/images/userResources/@book.ImagePath" />
+                        }
+                    </a>
+                    <h3 class="c-bookCard_title">@book.Title</h3>
+                    <div class="c-bookCard_author">by @book.Author</div>
+                    <div class="c-bookCard_starContainer">
+                        @for (var i = 0; i < book.Rating; i++)
+                        {
+                            <img class="c-bookCard_star" src="~/images/AppResources/rating.png" alt="The book rating is @book.Rating" />
+                        }
                     </div>
-                }
-            </div>
-
-            <nav class="p-index_navigation">
-                @if (Model.HasPreviousPage)
-                {
-                    <a class="p-index_button -active -large" asp-action="Index" asp-route-id="@Model.PreviousPageIndex">Previous</a>
-                }
-                else
-                {
-                    <span class="p-index_button -disabled -large">Previous</span>
-                }
-
-                @if (Model.HasNextPage)
-                {
-                    <a class="p-index_button -active -large" asp-action="Index" asp-route-id="@Model.NextPageIndex">Next</a>
-                }
-                else
-                {
-                    <span class="p-index_button -disabled -large">Next</span>
-                }
-            </nav>
+                    <span class="c-bookCard_actionContainer">
+                        <a class="c-bookCard_edit o-buttonLink -active" asp-action="Edit" asp-route-id="@book.Id">edit</a>
+                        <a class="c-bookCard_delete o-buttonLink -red" asp-action="Delete" asp-route-id="@book.Id">delete</a>
+                    </span>
+                    <span class="c-bookCard_actionContainerToggle o-iconLink"></span>
+                </div>
+            }
         </div>
-    </section>
+
+        <nav class="p-index_navigation">
+            @if (Model.Content.HasPreviousPage)
+            {
+                <a class="p-index_navButton -active" asp-action="Index" asp-route-id="@Model.Content.PreviousPageIndex">Previous</a>
+            }
+            else
+            {
+                <span class="p-index_navButton -disabled">Previous</span>
+            }
+
+            <span class="p-index_pageCount">@Model.Content.PageIndex of @Model.Content.TotalPages</span>
+
+            @if (Model.Content.HasNextPage)
+            {
+                <a class="p-index_navButton -active" asp-action="Index" asp-route-id="@Model.Content.NextPageIndex">Next</a>
+            }
+            else
+            {
+                <span class="p-index_navButton -disabled">Next</span>
+            }
+        </nav>
+    </div>
 </main>

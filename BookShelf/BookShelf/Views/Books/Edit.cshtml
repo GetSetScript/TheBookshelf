@@ -1,0 +1,73 @@
+﻿@model EditBookDto
+@{
+    ViewBag.Title = "Edit";
+}
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/05_Pages/p-edit.css" />
+}
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/imageInputValidation.js"></script>
+    <script src="~/js/p-edit.js"></script>
+}
+
+<main class="b-wrapper">
+    <h1 class="p-edit_title">Edit Book</h1>
+
+    @if (!string.IsNullOrWhiteSpace(ViewBag.CreateImageError?.ToString()))
+    {
+        <p class="p-edit_saveImageError">@ViewBag.EditImageError</p>
+    }
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="p-edit">
+            <div class="p-edit_formData">
+                <label class="p-edit_label" asp-for="Title">Title: </label>
+                <span class="p-edit_error" asp-validation-for="Title"></span>
+                <input class="p-edit_input" asp-for="Title" />
+
+                <label class="p-edit_label" asp-for="Author">Author: </label>
+                <span class="p-edit_error" asp-validation-for="Author"></span>
+                <input class="p-edit_input" asp-for="Author" />
+
+                <label class="p-edit_label" asp-for="Rating">Rating: </label>
+                <span class="p-edit_error" asp-validation-for="Rating"></span>
+                <input class="p-edit_input" asp-for="Rating" />
+
+                <label class="p-edit_label" asp-for="DateRead">Date Read: </label>
+                <span class="p-edit_error" asp-validation-for="DateRead"></span>
+                <input class="p-edit_input" asp-for="DateRead" type="date" />
+
+                <input class="p-edit_changeImageInput" asp-for="ShouldChangeImage" type="checkbox" />
+                <label class="p-edit_label" asp-for="ShouldChangeImage">Change Image?</label>
+                <span class="p-edit_error" asp-validation-for="ShouldChangeImage"></span>
+
+                <div class="p-edit_imageContainer">
+                    <span class="p-edit_imageLabel">Image: </span>
+                    <span class="p-edit_error" asp-validation-for="Image"></span>
+                    <label class="p-edit_imageButton" asp-for="Image">Load</label>
+                    <span class="p-edit_imageContent">No Image Selected</span>
+                    <input class="p-edit_imageInput" asp-for="Image"
+                           type="file" data-rule-fileSize="true" data-rule-fileExtension="true" />
+                </div>
+
+                <p class="p-edit_note">
+                    *Note: to prevent stretching please make sure your images
+                    have a width to height ratio of around 7:10
+                </p>
+            </div>
+
+            <div class="p-edit_descriptionContainer">
+                <label class="p-edit_label" asp-for="Description">Description: </label>
+                <span class="p-edit_error" asp-validation-for="Description"></span>
+                <textarea class="p-edit_textArea" asp-for="Description" rows="14" cols="30"></textarea>
+            </div>
+        </div>
+
+        <div class="p-edit_actionsContainer">
+            <button class="p-edit_submit o-button -active">Submit</button>
+            <a href="javascript:history.go(-1)" class="o-buttonLink -orange p-edit_cancel">Cancel</a>
+        </div>
+    </form>
+</main>

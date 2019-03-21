@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-#pragma warning disable CS1591
-
 namespace BookShelf.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
@@ -28,19 +26,24 @@ namespace BookShelf.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Author")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(55);
 
-                    b.Property<DateTime>("DateRead");
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateRead");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(7000);
 
                     b.Property<string>("ImagePath");
 
                     b.Property<int?>("Rating");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(55);
 
                     b.HasKey("Id");
 

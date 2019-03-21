@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using BookShelf.Core;
 using BookShelf.Data;
 using BookShelf.Services;
@@ -41,12 +40,12 @@ namespace BookShelf
         /// <param name="services">The Service Collection to add the DI Services to</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
-            
             services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BookshelfDatabase")), ServiceLifetime.Scoped);
 
             services.AddTransient<BookDataSeeder>();
             services.AddTransient<IBookRepositoryService, BookRepositoryService>();
+               
+            services.AddTransient<IBookImageService, ImageServiceLocal>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -67,7 +66,7 @@ namespace BookShelf
             }
             else
             {
-                //app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
@@ -80,8 +79,8 @@ namespace BookShelf
                     name: "default",
                     template: "{controller=Books}/{action=Index}/{id?}");
             });
-
-            bookDataSeeder.Seed();
+            
+            bookDataSeeder.TrySeed();
         }
     }
 }

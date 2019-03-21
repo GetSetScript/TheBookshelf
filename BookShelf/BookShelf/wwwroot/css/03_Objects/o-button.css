@@ -1,0 +1,40 @@
+﻿
+.o-button {
+    outline: none;
+    border: none;
+    background-color: darkgrey;
+    padding: .6rem 1rem;
+    text-transform: uppercase;
+    color: var(--color-text-light-primary);
+    border-radius: .3rem;
+}
+
+    .o-button:hover {
+        background-color: black;
+    }
+
+    .o-button::before {
+        font-family: var(--font-family-fontAwesome);
+        font-weight: var(--font-weight-fontAwesome-solid);
+        content: var(--fontAwesome-trash);
+        color: var(--color-text-light-primary);
+        padding-right: .5rem;
+    }
+
+/* */
+
+.o-button.-active {
+    background-color: var(--color-active);
+}
+
+    .o-button.-active:hover {
+        background-color: var(--color-active-hover);
+    }
+
+.o-button.-red {
+    background-color: red;
+}
+
+    .o-button.-red:hover {
+        background-color: darkred;
+    }

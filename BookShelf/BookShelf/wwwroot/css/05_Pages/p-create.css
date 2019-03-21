@@ -1,0 +1,122 @@
+﻿
+.p-create_title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.p-create_saveImageError {
+    color: red;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+    max-width: 80%;
+}
+
+.p-create {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+    max-width: 29rem;
+}
+
+.p-create_error {
+    color: red;
+}
+
+.p-create_input,
+.p-create_imageContent,
+.p-create_textArea {
+    display: block;
+    width: 100%;
+    padding: .3rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.p-create_note {
+    font-size: .8rem;
+}
+
+.p-create_imageContainer {
+    position: relative;
+}
+
+.p-create_imageButton {
+    text-transform: uppercase;
+    background-color: var(--color-active);
+    color: var(--color-text-light-primary);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: .5rem 1rem;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+    .p-create_imageButton:hover {
+        background-color: var(--color-active-hover);
+    }
+
+.p-create_imageInput {
+    opacity: 0;
+    display: inline;
+    position: absolute;
+}
+
+.p-create_imageContent {
+    background-color: white;
+    padding: .44rem;
+    overflow: hidden;
+}
+
+.p-create_actionsContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.p-create_submit {
+    margin-right: 2rem;
+}
+
+    .p-create_submit::before {
+        content: var(--fontAwesome-check);
+    }
+
+.p-create_cancel {
+}
+
+    .p-create_cancel::before {
+        content: var(--fontAwesome-cancel);
+    }
+
+
+@media (min-width: 56rem) {
+
+    .p-create_title {
+        margin-bottom: 3rem;
+    }
+
+    .p-create {
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+
+    .p-create_input,
+    .p-create_imageContent,
+    .p-create_textArea {
+        width: 24rem;
+    }
+
+    .p-create_descriptionContainer {
+        margin-left: 4rem;
+    }
+
+    .p-create_textArea {
+        height: 90%;
+        margin-bottom: 0;
+    }
+}
