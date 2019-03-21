@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Edit";
 }
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/05_Pages/p-edit.css" />
+}
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -9,8 +12,8 @@
     <script src="~/js/p-edit.js"></script>
 }
 
-<main class="b-wrapper b-spacer">
-    <h1 class="p-edit_title">Add Book</h1>
+<main class="b-wrapper">
+    <h1 class="p-edit_title">Edit Book</h1>
 
     @if (!string.IsNullOrWhiteSpace(ViewBag.CreateImageError?.ToString()))
     {
@@ -18,7 +21,7 @@
     }
 
     <form method="post" enctype="multipart/form-data">
-        <div class="b-wrapper p-edit">
+        <div class="p-edit">
             <div class="p-edit_formData">
                 <label class="p-edit_label" asp-for="Title">Title: </label>
                 <span class="p-edit_error" asp-validation-for="Title"></span>
@@ -62,9 +65,9 @@
             </div>
         </div>
 
-        <div class="b-wrapper p-edit_actionsContainer">
-            <button class="o-button -green p-edit_submit">Submit</button>
-            <a class="o-buttonLink -orange p-edit_cancel" asp-action="Index">Cancel</a>
+        <div class="p-edit_actionsContainer">
+            <button class="p-edit_submit o-button -active">Submit</button>
+            <a href="javascript:history.go(-1)" class="o-buttonLink -orange p-edit_cancel">Cancel</a>
         </div>
     </form>
 </main>

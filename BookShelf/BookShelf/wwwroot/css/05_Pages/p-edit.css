@@ -15,8 +15,9 @@
 .p-edit {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
     margin-bottom: 1.5rem;
-    max-width: 29rem;
+    max-width: 30rem;
 }
 
 .p-edit_error {
@@ -50,7 +51,7 @@
 
 .p-edit_imageButton {
     text-transform: uppercase;
-    background-color: green;
+    background-color: var(--color-active);
     color: var(--color-text-light-primary);
     position: absolute;
     bottom: 0;
@@ -61,7 +62,7 @@
 }
 
     .p-edit_imageButton:hover {
-        background-color: darkgreen;
+        background-color: var(--color-active-hover);
     }
 
 .p-edit_imageInput {
@@ -73,6 +74,7 @@
 .p-edit_imageContent {
     background-color: white;
     padding: .44rem;
+    overflow: hidden;
 }
 
 .p-edit_actionsContainer {

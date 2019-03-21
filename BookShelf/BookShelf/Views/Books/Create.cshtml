@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Create";
 }
+@section PageStyle {
+    <link rel="stylesheet" href="~/css/05_Pages/p-create.css" />
+}
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -9,7 +12,7 @@
     <script src="~/js/p-create.js"></script>
 }
 
-<main class="b-wrapper b-spacer">
+<main class="b-wrapper">
     <h1 class="p-create_title">Add Book</h1>
 
     @if (!string.IsNullOrWhiteSpace(ViewBag.CreateImageError?.ToString()))
@@ -18,7 +21,7 @@
     }
 
     <form method="post" enctype="multipart/form-data">
-        <div class="b-wrapper p-create">
+        <div class="p-create">
             <div class="p-create_formData">
                 <label class="p-create_label" asp-for="Title">Title: </label>
                 <span class="p-create_error" asp-validation-for="Title"></span>
@@ -42,7 +45,7 @@
                     <label class="p-create_imageButton" asp-for="Image">Load</label>
                     <span class="p-create_imageContent">No Image Selected</span>
                     <input class="p-create_imageInput" asp-for="Image"
-                            type="file" data-rule-fileSize="true" data-rule-fileExtension="true" />
+                           type="file" data-rule-fileSize="true" data-rule-fileExtension="true" />
                 </div>
 
                 <p class="p-create_note">
@@ -58,9 +61,9 @@
             </div>
         </div>
 
-        <div class="b-wrapper p-create_actionsContainer">
-            <button class="o-button -green p-create_submit">Submit</button>
-            <a class="o-buttonLink -orange p-create_cancel" asp-action="Index">Cancel</a>
+        <div class="p-create_actionsContainer">
+            <button class="p-create_submit o-button -active">Submit</button>
+            <a href="javascript:history.go(-1)" class="o-buttonLink -orange p-create_cancel">Cancel</a>
         </div>
     </form>
 </main>

@@ -1,8 +1,5 @@
 ﻿
 .c-bookCard {
-    background-color: var(--color-secondary);
-    box-shadow: 12px 11px 11px var(--color-shadow);
-    text-align: center;
     position: relative;
 }
 
@@ -17,43 +14,79 @@
     height: calc(var(--p-bookCardWidth) * 1.33);
 }
 
-.c-bookCard_title {
-    padding: .5rem 0;
-    margin: 0 1rem;
-    border-bottom: .2rem solid var(--color-underline);
+.c-bookCard_title,
+.c-bookCard_author,
+.c-bookCard_starContainer {
+    margin-bottom: 0;
+    padding-bottom: .5rem;
+}
+
+.c-bookCard_author {
+    color: var(--color-text-dark-secondary);
 }
 
 .c-bookCard_star {
+    max-width: 1rem;
+    height: auto;
+}
+
+.c-bookCard_actionContainer {
     position: absolute;
-    background-image: url("../../images/AppResources/rating.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    width: calc(var(--p-bookCardWidth) * .15);
-    height: calc(var(--p-bookCardWidth) * .15);
-    display: inline-block;
-    top: calc(var(--p-bookCardWidth) * 1.25);
+    top: 0;
+    width: 100%;
+    padding: .5rem 1rem;
+    background-color: var(--color-primary);
+    display: none;
+}
+
+.c-bookCard_actionContainerToggle {
+    font-family: var(--font-family-fontAwesome);
+    font-weight: var(--font-weight-fontAwesome-solid);
+    position: absolute;
+    top: 1%;
     right: 2%;
+    background-color: floralwhite;
+    border: .1rem solid #ababab;
+    border-radius: .3rem;
+    cursor: pointer;
+    z-index: 100;
 }
 
-.c-bookCard_rating {
-    position: relative;
-    top: 36%;
-    transform: translateY(-50%);
-    font-weight: bold;
-    color: black;
+    .c-bookCard_actionContainerToggle::before {
+        font-size: 1.3rem;
+        content: var(--fontAwesome-dots);
+        color: var(--color-active);
+        display: inline-block;
+        max-width: 36px;
+        width: 4rem;
+        height: 2rem;
+        text-align: center;
+        line-height: 1.7;
+    }
+
+        .c-bookCard_actionContainerToggle.-cancel::before {
+            content: var(--fontAwesome-cancel);
+        }
+
+
+.c-bookCard_edit,
+.c-bookCard_delete {
+    --c-font-size: .8rem;
+
+    font-size: var(--c-font-size);
+    padding: .5rem;
 }
 
-.c-bookCard_actionsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 0 .5rem 0 .5rem;
+    .c-bookCard_edit::before {
+        font-size: var(--c-font-size);
+        content: var(--fontAwesome-edit);
+    }
+
+.c-bookCard_delete {
+    margin-left: 1rem;
 }
 
-.c-bookCard_divider {
-    display: inline-block;
-    height: 1.5rem;
-    border-left: .2rem solid var(--color-underline);
-}
+    .c-bookCard_delete::before {
+        content: var(--fontAwesome-trash);
+        font-size: var(--c-font-size);
+    }

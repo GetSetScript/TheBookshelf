@@ -31,7 +31,7 @@ namespace BookShelf.Services
             _logger = logger;
             _hosting = hosting;
 
-            _localFilePath = Path.Combine(_hosting.WebRootPath, "images");
+            _localFilePath = Path.Combine(_hosting.WebRootPath, "images", "userResources");
         }
 
         /// <summary>

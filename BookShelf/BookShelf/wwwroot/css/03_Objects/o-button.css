@@ -23,12 +23,12 @@
 
 /* */
 
-.o-button.-green {
-    background-color: green;
+.o-button.-active {
+    background-color: var(--color-active);
 }
 
-    .o-button.-green:hover {
-        background-color: darkgreen;
+    .o-button.-active:hover {
+        background-color: var(--color-active-hover);
     }
 
 .o-button.-red {
